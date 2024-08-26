@@ -1,2 +1,2 @@
 const smalls = Number.MIN_VALUE 
-const biggie = Number.MAX_SAFE_INTEGER
+const biggie = Number.MAX_VALUE * 2
