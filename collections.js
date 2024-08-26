@@ -3,7 +3,7 @@ function arrToSet(arr){
 }
 
 function arrToStr(arr){
-    return arr.toString()
+    return arr.join('')
 }
 
 
