@@ -3,5 +3,5 @@ function id(arg){
 }
 
 function getLength(arg){
-    return arr.length
+    return arg.length
 }
