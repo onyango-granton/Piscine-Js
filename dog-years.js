@@ -18,7 +18,7 @@ function dogYears(planetName ,dogAgeSec){
     } else if (planetName == "neptune"){
         age = dogAgeSec / (164.79132 * earthYear)
     }
-    return Math.round(age * 100) / 100
+    return Math.round(age * 100 * 7) / 100
 }
 
 console.log(dogYears("earth", 1000000000 ))
