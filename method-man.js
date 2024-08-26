@@ -1,5 +1,5 @@
 function words(s){
-    return s.Split(" ")
+    return s.split(" ")
 }
 
 function sentence(stringArr){
