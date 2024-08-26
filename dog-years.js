@@ -20,5 +20,3 @@ function dogYears(planetName ,dogAgeSec){
     }
     return Math.round(age * 100 * 7) / 100
 }
-
-console.log(dogYears("earth", 1000000000 ))
