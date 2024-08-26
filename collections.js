@@ -16,7 +16,7 @@ function setToStr(set) {
 }
 
 function strToArr(str) {
-    return str.split(' ')
+    return str.split('')
 }
 
 function strToSet(str) {
