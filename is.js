@@ -4,7 +4,7 @@ is.nan = (value) => Number.isNaN(value)
 is.str = (value) => typeof(value) === 'string'
 is.bool = (value) => typeof(value) === 'boolean' 
 is.undef= (value) => typeof(value) === 'undefined' 
-is.def = (value) => !is.undef(value) && is.truthy(value)
+is.def = (value) => !is.undef(value)
 is.arr = (value) => Array.isArray(value)
 is.fun = (value) => typeof(value) === 'function' 
 is.falsy = (value) => {
@@ -12,4 +12,4 @@ is.falsy = (value) => {
            value === 0n || value === '' || value === null || 
            value === undefined || Number.isNaN(value);
 }
-is.truthy = (value) => !is.falsy(value) ? true : false
+is.truthy = (value) => !is.falsy(value)
