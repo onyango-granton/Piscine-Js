@@ -1,4 +1,4 @@
-is.obj = (value) => !(is.arr(value)) && typeof(value) === 'object' && value !== 'null'
+is.obj = (value) => !(is.arr(value)) && typeof(value) === 'object' && is.def(value)
 is.num = (value) => typeof(value) === 'number' 
 is.nan = (value) => Number.isNaN(value) 
 is.str = (value) => typeof(value) === 'string'
