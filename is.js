@@ -5,7 +5,7 @@ is.bool = (value) => typeof(value) === 'boolean'
 is.undef= (value) => typeof(value) === 'undefined' 
 is.def = (value) => value !== 'undefined' && value !== 'null'
 is.arr = (value) => Array.isArray(value)
-is.obj = (value) => value === null || typeof(value) === 'object'
+is.obj = (value) => (value === null && typeof(value) === 'object') || typeof(value) === 'object' 
 is.fun = (value) => typeof(value) === 'function' 
 is.truthy = (value) => !!value
 is.falsy = (value) => !!value
