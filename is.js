@@ -1,6 +1,5 @@
-
 is.num = (value) => typeof(value) === 'number' ? true : false
-is.nan = (value) => !(is.num(value)) ? true : false
+is.nan = (value) => !(is.num(value)) ? NaN : false
 is.str = (value) => typeof(value) === 'string' ? true :false
 is.bool = (value) => typeof(value) === 'boolean' ? true : false
 is.undef= (value) => typeof(value) === 'undefined' ? true : false
@@ -10,4 +9,3 @@ is.obj = (value) => typeof(value) === 'object' ? true : false
 is.fun = (value) => typeof(value) === 'function' ? true : false
 is.truthy = (value) => typeof(value) === 'truthy' ? true : false
 is.falsy = (value) => typeof(value) === "falsy" ? true : false
-
