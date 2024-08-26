@@ -1,6 +1,6 @@
 
 is.num = (value) => typeof(value) === 'number' ? true : false
-is.nan = (value) => typeof(value) === 'NaN' ? value : false
+is.nan = (value) => !(is.num(value)) ? true : false
 is.str = (value) => typeof(value) === 'string' ? true :false
 is.bool = (value) => typeof(value) === 'boolean' ? true : false
 is.undef= (value) => typeof(value) === 'undefined' ? true : false
