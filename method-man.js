@@ -3,7 +3,7 @@ function words(s){
 }
 
 function sentence(stringArr){
-    return s.Join(" ")
+    return stringArr.Join(" ")
 }
 
 function yell(s){
@@ -17,3 +17,6 @@ function whisper(s){
 function capitalize(s){
     return s[0].toUpperCase()+s.slice(1).toLowerCase()
 }
+
+
+console.log(words(""))
