@@ -3,7 +3,7 @@ function words(s){
 }
 
 function sentence(stringArr){
-    return stringArr.Join(" ")
+    return stringArr.join(" ")
 }
 
 function yell(s){
