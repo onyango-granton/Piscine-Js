@@ -4,6 +4,9 @@ const person = {
     country: 'FR',
   }
 
-const clone1 = new person
-const clone2 = new person
-const samePerson = person
+const clone1 = new person()
+const clone2 = new person()
+const samePerson = new person()
+samePerson.name = person.name
+samePerson.age = person.age
+samePerson.country = person.country
