@@ -15,6 +15,10 @@ function setToStr(set) {
     return [...set].join('')
 }
 
+function strToObj(str) {
+    return arrToObj(strToArr(str))
+}
+
 function strToArr(str) {
     return str.split('')
 }
