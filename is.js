@@ -1,4 +1,5 @@
-is.obj = (value) => !(is.arr(value)) && typeof(value) === 'object' && value === "null" && typeof(value) === 'null'
+var is = {}
+is.obj = (value) => !(is.arr(value)) && typeof(value) === 'object' && is.falsy(value)
 is.num = (value) => typeof(value) === 'number' 
 is.nan = (value) => Number.isNaN(value) 
 is.str = (value) => typeof(value) === 'string'
@@ -9,3 +10,5 @@ is.arr = (value) => Array.isArray(value)
 is.fun = (value) => typeof(value) === 'function' 
 is.truthy = (value) => !!value
 is.falsy = (value) => !!value
+
+console.log(is.fun([]))
