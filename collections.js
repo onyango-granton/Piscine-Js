@@ -28,7 +28,7 @@ function mapToObj(map) {
 }
 
 function objToArr(obj) {
-    return new Array(Object.entries(obj))
+    return Object.values(obj)
 }
 
 function objToMap(obj) {
