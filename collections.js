@@ -68,6 +68,8 @@ function superTypeOf(arg){
         } else if (arg instanceof Set){
             return 'Set'
         }     
+    }else if (arg === null) {
+        return 'null'
     }else if (typeof(arg) === 'object' ){
         if (arg instanceof Array){
             return 'Array'
@@ -83,9 +85,7 @@ function superTypeOf(arg){
         return 'Number'
     } else if (Array.isArray(arg)){
         return 'Array'
-    } else if (arg === null) {
-        return 'null'
-    } else if (typeof(arg) === 'undefined'){
+    }  else if (typeof(arg) === 'undefined'){
         return 'undefined'
     } else if (typeof(arg) === 'function'){
         return 'Function'
