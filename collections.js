@@ -62,14 +62,14 @@ function arrToObj(arr) {
 // is.truthy = (value) => !is.falsy(value)
 
 function superTypeOf(arg){
-    if (typeof(arg) === 'object' && arg.size !== undefined){
+    if (arg === null) {
+        return 'null'
+    } else if (typeof(arg) === 'object' && arg.size !== undefined){
         if (arg instanceof Map){
             return 'Map'
         } else if (arg instanceof Set){
             return 'Set'
         }     
-    }else if (arg === null) {
-        return 'null'
     }else if (typeof(arg) === 'object' ){
         if (arg instanceof Array){
             return 'Array'
