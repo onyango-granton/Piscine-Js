@@ -69,7 +69,12 @@ function superTypeOf(arg){
             return 'Set'
         }     
     }else if (typeof(arg) === 'object' ){
-        return 'Object'
+        if (arg instanceof Array){
+            return 'Array'
+        } else {
+            return 'Object'
+        }
+        
     } else if (typeof(arg) === 'string'){
         return 'String'
     } else if (typeof(arg) === 'number'){
