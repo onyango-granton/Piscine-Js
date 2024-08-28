@@ -3,7 +3,7 @@ const indexOf = function(array,value,index) {
         index = 0
     }
     for (let i = index; i < array.length;i++){
-        if (array[i] == value){
+        if (array[i] === value){
             return i
         }
     }
@@ -12,22 +12,15 @@ const indexOf = function(array,value,index) {
 
 
 const lastIndexOf = function(array,value,index){
-    let lastIndex
     if (index == null){
-        index = 0
+        index = array.length - 1
     }
-    for (let i = index; i < array.length;i++){
-        if (array[i] == value){
-            lastIndex = i
+    for (let i = index; i >= 0;i--){
+        if (array[i] === value){
+            return i
         }
     }
-    if (lastIndex !== undefined){
-        return lastIndex
-    } else {
-        return -1
-    }
+    return -1
 }
 
 const includes = (array,value,index) => indexOf(array,value,index) == -1 ? false : true
-
-console.log( lastIndexOf([t, 0, 0, t], t, 2))
