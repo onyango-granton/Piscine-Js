@@ -12,7 +12,6 @@ const indexOf = function(array,value,index) {
 
 
 const lastIndexOf = function(array,value,index){
-    console.log(array)
     let lastIndex
     if (index == null){
         index = 0
