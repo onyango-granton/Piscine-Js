@@ -64,20 +64,28 @@ const modulo = function(a,b){
     if (b == 0){
         return NaN
     }
+    let sign = false
     if (a < 0 && b < 0){
-        return -0
+        sign = !sign
+        a = Math.abs(a)
+        b = Math.abs(b)
     }
-    if (a < 0){
-        return -0
+    
+    if (a < 0 && b > 0){
+        sign = !sign
+        a = Math.abs(a)
     }
-    if (b < 0){
-        return 0
+    if (b < 0 && a > 0){
+        b = Math.abs(b)
     }
 
     while (a >= b) {
         a = a - b
     }
-    return a
+    if (sign){
+        return -a
+    } else {
+        return a
+    }
+   
 }
-
-
