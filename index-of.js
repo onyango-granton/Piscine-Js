@@ -29,3 +29,5 @@ const lastIndexOf = function(array,value,index){
 }
 
 const includes = (array,value,index) => indexOf(array,value,index) == -1 ? false : true
+
+console.log( lastIndexOf([t, 0, 0, t], t, 2))
