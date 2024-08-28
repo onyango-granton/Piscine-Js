@@ -1,6 +1,6 @@
 function blockChain(data, prev){
     if (prev == undefined){
-      prev = {index:0, data:'0'}
+      prev = {index:0, hash:'0'}
     }
     return{
       index: prev.index + 1,
