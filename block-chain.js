@@ -1,4 +1,4 @@
-function blockchain(data, prev){
+function blockChain(data, prev){
     if (prev == undefined){
       prev = {index:0, data:'0'}
     }
@@ -7,7 +7,7 @@ function blockchain(data, prev){
       data: data,
       hash: hashCode(index.toString()+prev.hash+JSON.stringify(data)),
       prev:prev,
-      chain : data => blockchain(data,this)
+      chain : data => blockChain(data,this)
     }
   }
   
