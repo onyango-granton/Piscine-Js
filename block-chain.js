@@ -7,7 +7,9 @@ function blockChain(data, prev){
       data: data,
       prev:prev,
       hash: hashCode((prev.index + 1).toString()+prev.hash+JSON.stringify(data)),    
-      chain : data => blockChain(data,this)
+      chain : function(data) {
+        return blockChain(data,this)
+      }
     }
   }
   
