@@ -19,7 +19,7 @@ const keepLast = function(string){
 }
 
 const keepFirstLast = function(string){
-    if (string.length == 2){
+    if (string.length == 2 || string.length == 3){
         return string
     }
     return keepFirst(string) + keepLast(string)
