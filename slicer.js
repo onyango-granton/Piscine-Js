@@ -12,7 +12,7 @@ const slice = function (string, start, end){
         if (end < 0){
             end = string.length + end
         }
-        for (let i = start; i< string.length; i++){
+        for (let i = start; i< end; i++){
             res += string[i]
         }
         return res
