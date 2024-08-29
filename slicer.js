@@ -7,9 +7,10 @@ const slice = function (string, start, end){
         for (let i = start; i< string.length; i++){
             res += string[i]
         }
-        if (typeof(string) === "String"){
+        if (typeof(string) === "string"){
             return res
         } else {
+            console.log(typeof(string))
             return res.split("")
         }
     } else if (start != null && end != null){
@@ -22,7 +23,7 @@ const slice = function (string, start, end){
         for (let i = start; i< end; i++){
             res += string[i]
         }
-        if (typeof(string) === "String"){
+        if (typeof(string) === "string"){
             return res
         } else {
             return res.split("")
@@ -32,3 +33,4 @@ const slice = function (string, start, end){
     }
     
 }
+
