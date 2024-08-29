@@ -19,6 +19,10 @@ const keepLast = function(string){
 }
 
 const keepFirstLast = function(string){
+    if (string.length == 2){
+        return string
+    }
     return keepFirst(string) + keepLast(string)
 }
 
+console.log(keepFirstLast("af"))
