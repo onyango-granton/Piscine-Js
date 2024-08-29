@@ -24,7 +24,7 @@ const slice = function (string, start, end){
         if (start < 0){
             start = string.length + start
         }
-        for (let i = start; i< string.length; i++){
+        for (let i = start; i< end; i++){
             if (typeof(string) === "string"){
                 res += string[i]
             } else {
@@ -39,4 +39,4 @@ const slice = function (string, start, end){
 }
 
 
-console.log(slice([1, 2, 3, 4, 5, 6], 2))
+console.log(slice('abcdef', 0, 2))
