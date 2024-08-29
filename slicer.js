@@ -21,4 +21,3 @@ const slice = function (string, start, end){
     }
     
 }
-
