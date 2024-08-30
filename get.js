@@ -12,4 +12,4 @@ const get = function(src,path){
     return res
 }
 
-console.log(get({ nested: { key: 'value' } }, 'nx.nx'))
+// console.log(get({ nested: { key: 'value' } }, 'nx.nx'))
