@@ -1,4 +1,7 @@
 const split = function(s, sep){
+    if (s.length=0){
+        return []
+    }
     let res = new Array
     let word = ""
     if (sep == null){
