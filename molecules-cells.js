@@ -27,6 +27,9 @@ const RNAreplace = function(str) {
     if (str == "U" || str == "u") {
         return "A";
     }
+    if (str == "T" || str == "t") {
+        return "A";
+    }
 }
 
 const DNAreplace = function(str) {
@@ -43,3 +46,6 @@ const DNAreplace = function(str) {
         return "U"; 
     }
 }
+
+
+// eq(RNA('TAGC'), 'AUCG')
