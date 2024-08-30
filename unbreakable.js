@@ -1,6 +1,6 @@
 const split = function(s, sep){
     if (s.length == 0){
-        return []
+        return ['']
     }
     let res = new Array
     let word = ""
