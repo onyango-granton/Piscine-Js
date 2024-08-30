@@ -66,7 +66,7 @@ const trunc = function (data) {
   }
   let num = 0;
   for (; num < data - 1; num++) {}
-  bigInt ? num + 0xfffffffff : num;
+  bigInt ? num += 0xfffffffff : num;
   if (sign) {
     return -num;
   } else {
