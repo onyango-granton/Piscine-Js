@@ -1,69 +1,45 @@
-const DNA = function(string){
-    let res = ""
-    for (let i = 0; i < string.length; i++){
-        res += DNAreplace(string[i])
+const DNA = function(string) {
+    let res = "";
+    for (let i = 0; i < string.length; i++) {
+        res += DNAreplace(string[i]);
     }
-    return res
+    return res;
 }
 
-const RNA = function(string){
-    let res = ""
-    for (let i = 0; i < string.length; i++){
-        res += RNAreplace(string[i])
+const RNA = function(string) {
+    let res = "";
+    for (let i = 0; i < string.length; i++) {
+        res += RNAreplace(string[i]);
     }
-    return res
+    return res;
 }
 
-const RNAreplace = function(str){
-    if (str == "G" || str == "g"){
-        return "C"
+const RNAreplace = function(str) {
+    if (str == "G" || str == "g") {
+        return "C";
     }
-    if (str == "C" || str == "c"){
-        return "G"
+    if (str == "C" || str == "c") {
+        return "G";
     }
-    if (str == "T" || str == "t"){
-        return "A"
+    if (str == "A" || str == "a") {
+        return "T";  
     }
-    if (str == "A" || str == "a"){
-        return "U"
-    }
-    if (str == "U" || str == "u"){
-        return "A"
+    if (str == "U" || str == "u") {
+        return "A";
     }
 }
 
-const DNAreplace = function(str){
-    if (str == "G" || str == "g"){
-        return "C"
+const DNAreplace = function(str) {
+    if (str == "G" || str == "g") {
+        return "C";
     }
-    if (str == "C" || str == "c"){
-        return "G"
+    if (str == "C" || str == "c") {
+        return "G";
     }
-    if (str == "T" || str == "t"){
-        return "A"
+    if (str == "T" || str == "t") {
+        return "A";
     }
-    if (str == "A" || str == "a"){
-        return "U"
-    }
-    if (str == "U" || str == "u"){
-        return "A"
+    if (str == "A" || str == "a") {
+        return "U"; 
     }
 }
-
-// const RNAreplace = function(str){
-//     if (str == "U" || str == "u"){
-//         return "A"
-//     }
-//     if (str == "A" || str == "a"){
-//         return "T"
-//     }
-//     if (str == "C" || str == "c"){
-//         return "G"
-//     }
-//     if (str == "g" || str == "G"){
-//         return "C"
-//     } 
-    
-// }
-
-// console.log(RNA(DNA('AUCG')))
