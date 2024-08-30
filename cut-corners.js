@@ -36,7 +36,7 @@ const floor = function (data) {
     num--;
     return num;
   } else {
-    num++;
+    num--;
     return num;
   }
 };
