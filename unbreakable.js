@@ -1,5 +1,5 @@
 const split = function(s, sep){
-    if (s.length=0){
+    if (s.length == 0){
         return []
     }
     let res = new Array
