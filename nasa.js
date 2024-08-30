@@ -18,5 +18,5 @@ const nasa = function(num){
         }
         
     }
-    console.log(res)
+    return res
 }
