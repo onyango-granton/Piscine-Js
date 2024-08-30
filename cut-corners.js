@@ -1,4 +1,7 @@
 const round = function (data) {
+  if (data === 0){
+    return 0
+  }
   let sign = false;
   if (data < 0) {
     data *= -1;
@@ -15,6 +18,9 @@ const round = function (data) {
 };
 
 const ceil = function (data) {
+  if (data === 0){
+    return 0
+  }
   let sign = false;
   if (data < 0) {
     data *= -1;
@@ -31,6 +37,9 @@ const ceil = function (data) {
 };
 
 const floor = function (data) {
+  if (data === 0){
+    return 0
+  }
   let num = ceil(data);
   if (num < 0) {
     num--;
@@ -42,6 +51,9 @@ const floor = function (data) {
 };
 
 const trunc = function (data) {
+  if (data === 0){
+    return 0
+  }
   let sign = false;
   if (data < 0) {
     sign = !sign;
