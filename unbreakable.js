@@ -12,12 +12,16 @@ const split = function(s, sep){
         } else if (sep != "" && s.slice(i, i+sep.length) == sep){
             res.push(word)
             word = ""
+            if ( i == s.length - 1 && s[s.length - 1] == sep){
+                res.push("")
+            }
             i += sep.length
             continue
         }
         word += s[i]
         if (i == s.length-1){
             res.push(word)
+            
         }
         i++
     }
