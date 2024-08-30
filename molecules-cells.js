@@ -1,7 +1,7 @@
 const DNA = function(string){
     let res = ""
     for (let i = 0; i < string.length; i++){
-        res += replace(string[i])
+        res += DNAreplace(string[i])
     }
     return res
 }
@@ -9,12 +9,12 @@ const DNA = function(string){
 const RNA = function(string){
     let res = ""
     for (let i = 0; i < string.length; i++){
-        res += replace(string[i])
+        res += RNAreplace(string[i])
     }
     return res
 }
 
-const replace = function(str){
+const DNAreplace = function(str){
     if (str == "G" || str == "g"){
         return "C"
     }
@@ -27,7 +27,19 @@ const replace = function(str){
     if (str == "A" || str == "a"){
         return "U"
     }
+}
+
+const RNAreplace = function(str){
     if (str == "U" || str == "u"){
         return "A"
     }
+    if (str == "A" || str == "a"){
+        return "T"
+    }
+    if (str == "C" || str == "c"){
+        return "G"
+    }
+    if (str == "g" || str == "G"){
+        return "C"
+    } 
 }
