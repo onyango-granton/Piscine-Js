@@ -45,6 +45,9 @@ const DNAreplace = function(str) {
     if (str == "A" || str == "a") {
         return "U"; 
     }
+    if (str == "A" || str == "a") {
+        return "U";  
+    }
 }
 
 
