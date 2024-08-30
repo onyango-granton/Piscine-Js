@@ -27,4 +27,7 @@ const replace = function(str){
     if (str == "A" || str == "a"){
         return "U"
     }
+    if (str == "U" || str == "u"){
+        return "A"
+    }
 }
