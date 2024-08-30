@@ -9,9 +9,27 @@ const DNA = function(string){
 const RNA = function(string){
     let res = ""
     for (let i = 0; i < string.length; i++){
-        res += DNAreplace(string[i])
+        res += RNAreplace(string[i])
     }
     return res
+}
+
+const RNAreplace = function(str){
+    if (str == "G" || str == "g"){
+        return "C"
+    }
+    if (str == "C" || str == "c"){
+        return "G"
+    }
+    if (str == "T" || str == "t"){
+        return "A"
+    }
+    if (str == "A" || str == "a"){
+        return "U"
+    }
+    if (str == "U" || str == "u"){
+        return "A"
+    }
 }
 
 const DNAreplace = function(str){
@@ -26,6 +44,9 @@ const DNAreplace = function(str){
     }
     if (str == "A" || str == "a"){
         return "U"
+    }
+    if (str == "U" || str == "u"){
+        return "A"
     }
 }
 
@@ -45,4 +66,4 @@ const DNAreplace = function(str){
     
 // }
 
-// console.log(DNA('TAGC'))
+// console.log(RNA(DNA('AUCG')))
