@@ -1,8 +1,11 @@
-const isPrint = function(index, end) {
+const isPrint = function(index, end,size) {
     let res = "";
     let empty = (end - index) / 2;
     for (let i = 0; i < empty; i++) {
-        res += " ";
+        for (let j = 0; j < size; j++){
+           res += " "; 
+        }
+        
     }
     return res;
 }
@@ -18,8 +21,10 @@ const pyramid = function(str, num) {
         printIndex += 2;
     }
 
+    console.log(startIndex)
+
     for (let i = 0; i < startIndex.length; i++) {
-        let spaces = isPrint(startIndex[i], startIndex[startIndex.length - 1]);
+        let spaces = isPrint(startIndex[i], startIndex[startIndex.length - 1],str.length);
         let row = spaces;
 
         for (let j = 0; j < startIndex[i]; j++) {
@@ -36,4 +41,4 @@ const pyramid = function(str, num) {
     return res;
 }
 
-console.log(pyramid("*", 5));
+// console.log(pyramid("{}", 5));
