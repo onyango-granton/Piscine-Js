@@ -32,7 +32,6 @@ const ceil = function (data) {
 
 const floor = function (data) {
   let num = ceil(data);
-  console.log("here");
   if (num < 0) {
     num--;
     return num;
