@@ -22,7 +22,7 @@ const RNAreplace = function(str) {
         return "G";
     }
     if (str == "A" || str == "a") {
-        return "T";  
+        return "U";  
     }
     if (str == "U" || str == "u") {
         return "A";
