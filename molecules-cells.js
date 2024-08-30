@@ -1,49 +1,45 @@
-const DNA = function(string) {
-    let res = "";
-    for (let i = 0; i < string.length; i++) {
-        res += DNAreplace(string[i]);
+function RNA(dnaStrand) {
+    let rnaStrand = "";
+    for (let i = 0; i < dnaStrand.length; i++) {
+        switch (dnaStrand[i]) {
+            case 'G':
+                rnaStrand += 'C';
+                break;
+            case 'C':
+                rnaStrand += 'G';
+                break;
+            case 'T':
+                rnaStrand += 'A';
+                break;
+            case 'A':
+                rnaStrand += 'U';
+                break;
+            default:
+                throw new Error("Invalid DNA nucleotide");
+        }
     }
-    return res;
+    return rnaStrand;
 }
 
-const RNA = function(string) {
-    let res = "";
-    for (let i = 0; i < string.length; i++) {
-        res += RNAreplace(string[i]);
+function DNA(rnaStrand) {
+    let dnaStrand = "";
+    for (let i = 0; i < rnaStrand.length; i++) {
+        switch (rnaStrand[i]) {
+            case 'G':
+                dnaStrand += 'C';
+                break;
+            case 'C':
+                dnaStrand += 'G';
+                break;
+            case 'A':
+                dnaStrand += 'T';
+                break;
+            case 'U':
+                dnaStrand += 'A';
+                break;
+            default:
+                throw new Error("Invalid RNA nucleotide");
+        }
     }
-    return res;
+    return dnaStrand;
 }
-
-const RNAreplace = function(str) {
-    if (str == "G" || str == "g") {
-        return "C";
-    }
-    if (str == "C" || str == "c") {
-        return "G";
-    }
-    if (str == "U" || str == "u") {
-        return "A";
-    }
-    if (str == "A" || str == "a") {
-        return "T";
-    }
-}
-
-const DNAreplace = function(str) {
-    if (str == "G" || str == "g") {
-        return "C";
-    }
-    if (str == "C" || str == "c") {
-        return "G";
-    }
-    if (str == "T" || str == "t") {
-        return "A";
-    }
-    if (str == "A" || str == "a") {
-        return "U"; 
-    }
-    
-}
-
-
-// eq(RNA('TAGC'), 'AUCG')
