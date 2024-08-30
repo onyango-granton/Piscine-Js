@@ -12,7 +12,7 @@ const split = function(s, sep){
         } else if (sep != "" && s.slice(i, i+sep.length) == sep){
             res.push(word)
             word = ""
-            if ( i == s.length - 1 && s[s.length - 1] == sep){
+            if ( i == s.length - sep.length && s.slice(s.length - sep.length) == sep){
                 res.push("")
             }
             i += sep.length
@@ -27,7 +27,6 @@ const split = function(s, sep){
     }
     return res
 }
-
 
 const join = function(s, joiner){
     let res = ""
