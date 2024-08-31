@@ -1,5 +1,5 @@
 const letterSpaceNumber = function (string) {
-    let pattern = /[a-zA-Z]\s\d(?!\s*[\da-zA-Z])/g
+    let pattern = /[a-zA-Z]\s\d(?![\da-zA-Z])/g
     const match = string.match(pattern)
 
     if (!match) {
@@ -7,3 +7,6 @@ const letterSpaceNumber = function (string) {
     }
     return match
 }
+
+
+// console.log(letterSpaceNumber("He is 8 or 9 years old, not 10."));
