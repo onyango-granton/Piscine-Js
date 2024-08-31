@@ -1,5 +1,5 @@
 const vowelDots = function (string) {
-    const charset = /[aeiou]/g
-    string = string.replace(charset, (match) => match+".")
+    const vowels = /[aeiou]/g
+    string = string.replace(vowels, (match) => match+".")
     return string
 }
