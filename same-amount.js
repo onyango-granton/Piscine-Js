@@ -1,9 +1,9 @@
 const sameAmount = function (str, reg1, reg2) {
-    let match1 = str.match(reg1)
+    let match1 = str.match(new RegExp(reg1.source,'g'))
     if (match1 == null) {
         match1 = []
     }
-    let match2 = str.match(reg2)
+    let match2 = str.match(new RegExp(reg2.source,'g'))
     if (match2 == null) {
         match2 = []
     }
@@ -14,4 +14,4 @@ const sameAmount = function (str, reg1, reg2) {
 }
 
 
-// console.log(sameAmount("hello from the other side",/[z]/g,/[o]/g))
+// console.log(sameAmount("hello from the other side",/[z]/,/[o]/))
