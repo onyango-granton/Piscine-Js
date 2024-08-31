@@ -8,8 +8,10 @@ const sameAmount = function (str, reg1, reg2) {
         match2 = []
     }
 
-    return match1 === match2
+    console.log(match1.length, match2);
+
+    return match1.length === match2.length
 }
 
 
-// console.log(sameAmount("hello from the other side",/[z]/,/[o]/))
+// console.log(sameAmount("hello from the other side",/[z]/g,/[o]/g))
