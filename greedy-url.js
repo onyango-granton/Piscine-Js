@@ -11,12 +11,22 @@ const greedyQuery = function (arg) {
     return arg.match(pattern);
 };
 
-const notSoGreedy = function (arg) {
-    const pattern =
-      /https?:\/\/[^\s?]+(?:\?[^\s&=]+=[^\s&=]+(?:&[^\s&=]+=[^\s&=]+){1,2})/g;
+// const notSoGreedy = function (arg) {
+//     const pattern =
+//       /https?:\/\/[^\s?]+(?:\?[^\s&=]+=[^\s&=]+(?:&[^\s&=]+=[^\s&=]+){1,3})/g;
 
-    return arg.match(pattern);
-}
+//     return arg.match(pattern);
+// }
+const notSoGreedy = function (arg) {
+  const urls = getURL(arg);
+  return urls.filter((url) => {
+    const queryParams = url.split("?")[1];
+    if (!queryParams) return false;
+
+    const paramsArray = queryParams.split("&"); 
+    return paramsArray.length > 1 && paramsArray.length <= 3;
+  });
+};
 
 
 // const dataSet = `qqq http:// qqqq q qqqqq https://something.com/hello qqqqqqq qhttp://example.com/hello?you=something&something=you qq 233.123.12.234 qw w wq wqw  wqw  ijnjjnfapsdbjnkfsdiqw klfsdjn fs fsd https://devdocs.io/javascript/global_objects/object/fromentries njnkfsdjnk sfdjn fsp fd192.168.1.123:8080 https://devdocs.io/javascript/global_objects/regexp/@@split
