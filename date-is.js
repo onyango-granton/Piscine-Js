@@ -5,10 +5,10 @@ const isValid = function (arg) {
   return !(arg == "Invalid Date") && typeof arg !== "string";
 };
 
-const isAfter = (arg1, arg2) => arg1 > arg2;
+const isAfter = (arg1, arg2) => isValid(arg1) && isValid(arg2) && arg1 > arg2;
 
-const isBefore = (arg1, arg2) => arg2 > arg1;
+const isBefore = (arg1, arg2) => isValid(arg1) && isValid(arg2) && arg2 > arg1;
 
-const isFuture = (arg1) => arg1 > Date.now();
+const isFuture = (arg1) => isValid(arg1) &&  arg1 > Date.now();
 
-const isPast = (arg1) => arg1 < Date.now();
+const isPast = (arg1) => isValid(arg1) && arg1 < Date.now();
