@@ -1,47 +1,32 @@
-const firstDayWeek = function ({ number, string }) {
-  const firstDate = new Date(string, 0, 1);
+function firstDayWeek(week, year) {
 
-  const daysElapsed = number * 7 * 1000 * 60 * 60 * 24;
+    let fullYear = parseInt(year, 10);
 
-  let endDate = firstDate.getTime() + daysElapsed;
+    let startOfYear = new Date(fullYear, 0, 1);
 
-  let newDateString = new Date(endDate).toString();
+    let firstDayOfWeek = new Date(startOfYear);
+    firstDayOfWeek.setDate(firstDayOfWeek.getDate() + (week - 1) * 7);
 
-  let Days = {
-    Mon: 0,
-    Tue: 1,
-    Wed: 2,
-    Thu: 3,
-    Fri: 4,
-    Sat: 5,
-    Sun: 6,
-  };
 
-  let Month = {
-    Jan: "01",
-    Feb: "02",
-    Mar: "03",
-    Apr: "04",
-    May: "05",
-    Jun: "06",
-    Jul: "07",
-    Aug: "08",
-    Sep: "09",
-    Oct: "10",
-    Nov: "11",
-    Dec: "12",
-  };
+    let dayOfWeek = firstDayOfWeek.getDay();
+    if (dayOfWeek === 0) { 
+        firstDayOfWeek.setDate(firstDayOfWeek.getDate() - 6);
+    } else {
+        firstDayOfWeek.setDate(firstDayOfWeek.getDate() - (dayOfWeek - 1));
+    }
 
-  overLapsedDays = newDateString.slice(0, 3);
+    let day = String(firstDayOfWeek.getDate()).padStart(2, '0');
+    let month = String(firstDayOfWeek.getMonth() + 1).padStart(2, '0');
+    let formattedYear = String(firstDayOfWeek.getFullYear());
 
-  let endDateMon = endDate - Days[overLapsedDays] * 1000 * 60 * 60 * 24;
+    if (formattedYear !== year) {
+        let date = Number(day) + 1;
+        let dateStr = ""
+        date < 10 ? dateStr = "0"+date.toString(): date.toString()
+        return `${dateStr}-${month}-${year}`;
+    }
 
-  endDateMon = new Date(endDateMon).toString();
+    return `${day}-${month}-${formattedYear}`;
+}
 
-  let endDateMonArr = endDateMon.split(" ");
-
-  return (
-    endDateMonArr[2] + "-" + Month[endDateMonArr[1]] + "-" + endDateMonArr[3]
-  );
-};
 
