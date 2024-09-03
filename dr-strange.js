@@ -1,10 +1,13 @@
-// Function to determine the day of the week in the new 14-day week format
-function addWeek(date) {
-    const epoch = new Date("0001-01-01");
-    const daysSinceEpoch = Math.floor((date - epoch) / (1000 * 60 * 60 * 24));
+const addWeek = function (arg) {
+  const epoch = new Date("0001-01-01");
 
-  const dayIndex = daysSinceEpoch % 14;
-  const weekDays = [
+  let timeBtwn = arg - epoch;
+
+  let days = timeBtwn / (1000 * 60 * 60 * 24);
+
+  let day = days % 14;
+
+  let weekDays = [
     "Monday",
     "Tuesday",
     "Wednesday",
@@ -21,23 +24,28 @@ function addWeek(date) {
     "secondSunday",
   ];
 
+  return weekDays[day];
+};
 
-  return weekDays[dayIndex];
-}
-
-function timeTravel({
-  date,
-  hours = 0,
-  minutes = 0,
-  seconds = 0,
-  milliseconds = 0,
-}) {
-  const newDate = new Date(date.getTime());
-
-  newDate.setHours(newDate.getHours() + hours);
-  newDate.setMinutes(newDate.getMinutes() + minutes);
-  newDate.setSeconds(newDate.getSeconds() + seconds);
-  newDate.setMilliseconds(newDate.getMilliseconds() + milliseconds);
-
+const timeTravel = function ({ date, hour, minute, second }) {
+  let newDate = new Date()
+  newDate.setTime(date.getTime());
+  newDate.setHours(hour - 2)
+  newDate.setMinutes(minute)
+  newDate.setSeconds(second)
+  newDate.setU
   return newDate;
-}
+};
+
+console.log(addWeek(new Date("0001-01-02")));
+console.log(addWeek(new Date("0001-01-08")));
+
+
+console.log(
+  timeTravel({
+    date: new Date("2020-05-29 23:25:22"),
+    hour: 21,
+    minute: 22,
+    second: 22,
+  }).toString()
+);
