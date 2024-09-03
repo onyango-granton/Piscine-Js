@@ -13,9 +13,10 @@ const isLastDayOfMonth = function (arg) {
     let tomorrow = new Date()
     tomorrow.setTime(arg.getTime() + (24 * 60 * 60 * 1000))
     
-    if (tomorrow.getMonth() > arg.getMonth()) {
+    if (tomorrow.getMonth() != arg.getMonth()) {
         return true
     }
     return false
 }
 
+console.log(isLastDayOfMonth(new Date("2020-12-31")));
