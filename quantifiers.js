@@ -2,12 +2,12 @@ const every = function (array, func) {
     let res = []
 
     for (let i = 0; i < array.length; i++){
-        if (func(array[i]) == true) {
-            res.push(array[i])
+        if (func(array[i], i, array) == false) {
+          return false;
         }
     }
 
-    return array.length === res.length
+    return true
 }
 
 
@@ -15,22 +15,12 @@ const some = function (array, func) {
   let res = [];
 
   for (let i = 0; i < array.length; i++) {
-    if (func(array[i]) == true) {
-      res.push(array[i]);
+    if (func(array[i], i, array) == true) {
+      return true;
     }
   }
 
-  return res.length > 0;
+  return false;
 };
 
-const none = function (array, func) {
-  let res = [];
-
-  for (let i = 0; i < array.length; i++) {
-    if (func(array[i]) == true) {
-      res.push(array[i]);
-    }
-  }
-
-  return res.length === 0;
-};
+const none = (array, func) => !(some(array,func))
