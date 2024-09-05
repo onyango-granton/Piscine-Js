@@ -9,17 +9,15 @@ const map = function (array, mapMethod) {
 const flatMap = function (array, flatMapMethod) {
     let res = []
     let res2 = []
-    for (let i = 0; i < array.length; i++){
-        res.push(flatMapMethod(array[i]))
-    }
-    for (let i = 0; i < res.length; i++){
-        if (res[i] instanceof Array) {
-            for (let j = 0; j < res[i].length; j++){
-                res2.push(res[i][j])
-            }
+    for (let i = 0; i < array.length; i++) {
+        const result = flatMapMethod(array[i]);
+        if (Array.isArray(result)) {
+            res2.push(...result);
+        } else if (result !== undefined) {
+            res2.push(result);
         } else {
-            res2.push(res[i])
-        }       
+            res2.push('undefined');
+        }
     }
 
     return res2
