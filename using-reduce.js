@@ -1,5 +1,5 @@
-const adder = function (numArray) {
-    return numArray.reduce((x,y) => x + y, 0)
+const adder = function (numArray,initialValue) {
+    return numArray.reduce((x,y) => x + y, initialValue)
 }
 
 const sumOrMul = function (numArray) {
