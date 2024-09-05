@@ -1,15 +1,21 @@
-const adder = function (numArray,initialValue) {
+const adder = function (numArray, initialValue) {
+    if (initialValue == null) {
+        initialValue = 0
+    }
     return numArray.reduce((x,y) => x + y, initialValue)
 }
 
-const sumOrMul = function (numArray) {
+const sumOrMul = function (numArray, initialValue) {
+    if (initialValue == null) {
+        initialValue = 0
+    }
     return numArray.reduce((x, y) => {
         if (y % 2 === 0) {
             return x * y
         } else {
             return x + y
         }
-    },1);
+    },0);
 }
 
 const funcExec = function (funcArr) {
