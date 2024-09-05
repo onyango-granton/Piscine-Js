@@ -15,7 +15,7 @@ const sumOrMul = function (numArray, initialValue) {
         } else {
             return x + y
         }
-    },0);
+    },initialValue);
 }
 
 const funcExec = function (funcArr) {
