@@ -2,7 +2,7 @@ const every = function (array, func) {
     let res = []
 
     for (let i = 0; i < array.length; i++){
-        if (func(array[i], i, array) == true) {
+        if (func(array[i]) == true) {
             res.push(array[i])
         }
     }
@@ -15,7 +15,7 @@ const some = function (array, func) {
   let res = [];
 
   for (let i = 0; i < array.length; i++) {
-    if (func(array[i], i, array) == true) {
+    if (func(array[i]) == true) {
       res.push(array[i]);
     }
   }
@@ -27,7 +27,7 @@ const none = function (array, func) {
   let res = [];
 
   for (let i = 0; i < array.length; i++) {
-    if (func(array[i], i, array) == true) {
+    if (func(array[i]) == true) {
       res.push(array[i]);
     }
   }
