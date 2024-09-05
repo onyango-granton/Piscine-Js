@@ -23,6 +23,8 @@ const trimTemp = function (objectArray) {
     return objectArray.map((x) => {
         return {
             city: x.city,
+            state: x.state,
+            region: x.region,
             temperature : x.temperature.replace(pattern,"")
         }
     })
