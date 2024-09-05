@@ -12,7 +12,7 @@ const filter5Vowels = function (stringArray) {
 
   return stringArray.filter((x) => {
     const matches = x.match(pattern);
-    return matches && matches.length > 5;
+    return matches && matches.length > 4;
   });
 };
 
