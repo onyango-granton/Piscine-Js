@@ -4,7 +4,10 @@ const citiesOnly = function (objectArray) {
 
 
 const upperCasingStates = function (statesArray) {
-    return statesArray.map((x) => x[0].toUpperCase()+x.slice(1,))
+    const capitalizeWords = function (str) {
+      return str.replace(/\b\w/g, (match) => match.toUpperCase());
+    };
+    return statesArray.map((x) => capitalizeWords(x))
 }
 
 const fahrenheitToCelsius = function (fahrenheitArray) {
@@ -36,15 +39,4 @@ const tempForecasts = function (objectArray) {
   });
 };
 
-console.log(
-  citiesOnly([
-    {
-      city: "Los Angeles",
-      temperature: "  101 °F   ",
-    },
-    {
-      city: "San Francisco",
-      temperature: " 84 ° F   ",
-    },
-  ])
-);
+// console.log(upperCasingStates(["alabama", "new jersey"]));
