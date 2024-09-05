@@ -37,7 +37,7 @@ const tempForecasts = function (objectArray) {
     const State = upperCasingStates([x.state])[0];
     const City = upperCasingStates([x.city])[0];
 
-    return celsius +"elsius"+ " in " + City + " " + State;
+    return celsius +"elsius"+ " in " + City + ", " + State;
   });
 };
 
