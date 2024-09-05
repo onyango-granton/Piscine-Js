@@ -18,6 +18,9 @@ const sumOrMul = function (numArray, initialValue) {
     },initialValue);
 }
 
-const funcExec = function (funcArr) {
-    return funcArr.reduce((x,y) => y(x),0)
+const funcExec = function (funcArr, initialValue) {
+    if (initialValue == null) {
+        initialValue = 0
+    }
+    return funcArr.reduce((x,y) => y(x),initialValue)
 }
