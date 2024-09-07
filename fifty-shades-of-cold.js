@@ -23,7 +23,7 @@ const generateColdShades = function () {
     "navy",
     "purple",
   ];
-  colors.array.forEach((color) => {
+  colors.forEach((color) => {
     if (coldShades.some((shade) => color.toLowerCase().includes(shade))) {
       let newDiv = document.createElement("div");
       newDiv.classList.add(color);
@@ -33,13 +33,12 @@ const generateColdShades = function () {
   });
 };
 
-
 const choseShade = function (shade) {
-    const allElem = document.querySelectorAll('div')
+  const allElem = document.querySelectorAll("div");
 
-    allElem.forEach(element => {
-        element.className = shade
-    })
-}
+  allElem.forEach((element) => {
+    element.className = shade;
+  });
+};
 
-export {generateClasses,generateColdShades,choseShade}
+export { generateClasses, generateColdShades, choseShade };
