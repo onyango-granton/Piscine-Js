@@ -3,11 +3,12 @@ const build = function (bricks) {
     let brickId = 1
     const buildInterval = setInterval(() => {
         let newDiv = document.createElement('div')
-        newDiv.setAttribute('id', `brick-${brickId}`)
-            (brickId % 3 === 2) ? newDiv.setAttribute('foundation', true) : false
+        newDiv.setAttribute("id", `brick-${brickId}`)(brickId % 3 === 2)
+          ? (brick.dataset.foundation = true)
+          : null;
         bodyElem.appendChild(newDiv)
         brickId++
-        (brickId == bricks + 1) ? clearInterval(buildInterval) : false
+        (brickId == bricks + 1) ? clearInterval(buildInterval) : null
     },100)
 }
 
