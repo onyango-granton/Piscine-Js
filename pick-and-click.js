@@ -7,13 +7,13 @@ document.addEventListener("click", (e) => {
   copyHSL();
 });
 
-const hsl = document.createElement("div");
-hsl.classList.add("hsl");
-document.body.appendChild(hsl);
+const hslDiv = document.createElement("div");
+hslDiv.classList.add("hsl");
+document.body.appendChild(hslDiv);
 
-const hue = document.createElement("div");
-hue.classList.add("hue", "text");
-document.body.appendChild(hue);
+const hueDiv = document.createElement("div");
+hueDiv.classList.add("hue", "text");
+document.body.appendChild(hueDiv);
 
 const luminosityDiv = document.createElement("div");
 luminosityDiv.classList.add("luminosity", "text");
@@ -57,8 +57,8 @@ function pick(e) {
   const luminosity = Math.round((mouseY / window.innerHeight) * 100);
   const hsl = `hsl(${hue}, 100%, ${luminosity}%)`;
   document.body.style.background = hsl;
-  hsl.innerHTML = hsl;
-  hue.innerHTML = `${hue}`;
+  hslDiv.innerHTML = hsl;
+  hueDiv.innerHTML = `${hue}`;
   luminosityDiv.innerHTML = `${luminosity}`;
   drawLines(mouseX, mouseY);
 }
@@ -72,7 +72,7 @@ function drawLines(x, y) {
 
 async function copyHSL() {
   try {
-    await navigator.clipboard.writeText(hsl.innerHTML);
+    await navigator.clipboard.writeText(hslDiv.innerHTML);
   } catch (err) {
     console.error("Failed to copy: ", err);
   }
