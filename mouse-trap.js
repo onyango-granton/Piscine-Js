@@ -31,34 +31,35 @@ class Circle {
   }
 
   updateTrappedState() {
+    const wasTrapped = this.isTrapped;
     this.isTrapped = this.isInsideBox(this.x, this.y);
-    this.element.style.background = this.isTrapped ? "var(--purple)" : "white";
+    if (this.isTrapped || wasTrapped) {
+      this.element.style.background = "var(--purple)";
+    } else {
+      this.element.style.background = "white";
+    }
   }
 
   move(x, y) {
-    if (!this.isTrapped) {
-      this.x = x;
-      this.y = y;
-    } else {
-      if (this.isInsideBox(x, y)) {
-        this.x = x;
-        this.y = y;
-      } else if (this.isInsideBox(x, this.y)) {
-        this.x = x;
-      } else if (this.isInsideBox(this.x, y)) {
-        this.y = y;
-      }
-    }
+    const newX = this.isTrapped
+      ? Math.max(box.x, Math.min(x, box.x + box.width - this.diameter))
+      : x;
+    const newY = this.isTrapped
+      ? Math.max(box.y, Math.min(y, box.y + box.height - this.diameter))
+      : y;
+
+    this.x = newX;
+    this.y = newY;
     this.updatePosition();
     this.updateTrappedState();
   }
 
   isInsideBox(x, y) {
     return (
-      x > box.x &&
-      x + this.diameter < box.x + box.width &&
-      y > box.y &&
-      y + this.diameter < box.y + box.height
+      x >= box.x &&
+      x + this.diameter <= box.x + box.width &&
+      y >= box.y &&
+      y + this.diameter <= box.y + box.height
     );
   }
 }
@@ -82,10 +83,10 @@ class Box {
 
   updateDimensions() {
     const rect = this.element.getBoundingClientRect();
-    this.x = rect.left - 1; // -1 to account for the border
-    this.y = rect.top - 1;
-    this.width = rect.width + 1; // +1 to account for the border
-    this.height = rect.height + 1;
+    this.x = rect.left;
+    this.y = rect.top;
+    this.width = rect.width;
+    this.height = rect.height;
   }
 }
 
