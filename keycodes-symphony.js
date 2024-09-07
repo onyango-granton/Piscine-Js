@@ -42,3 +42,5 @@ function clearAllNotes() {
   const notes = document.querySelectorAll(".note");
   notes.forEach((note) => note.remove());
 }
+
+export{compose}
