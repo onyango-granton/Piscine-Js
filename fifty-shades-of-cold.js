@@ -3,7 +3,7 @@ import { colors } from "fifty-shades-of-cold.data.js";
 const generateClasses = function () {
   const styleTag = document.createElement("style");
   let cssTags = "";
-  colors.array.forEach((color) => {
+  colors.forEach((color) => {
     cssTags += `${color} {background: ${color};} \n`;
   });
 
