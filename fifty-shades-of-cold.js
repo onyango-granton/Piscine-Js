@@ -4,7 +4,7 @@ const generateClasses = function () {
   const styleTag = document.createElement("style");
   let cssTags = "";
   colors.forEach((color) => {
-    cssTags += `${color} {background: ${color};} \n`;
+    cssTags += `.${color} {background: ${color};} \n`;
   });
 
   styleTag.innerHTML = cssTags;
