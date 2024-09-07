@@ -1,17 +1,15 @@
-const build = function (bricks) {
-    let bodyElem = document.getElementsByTagName('body')[0]
-    let brickId = 1
-    const buildInterval = setInterval(() => {
-        let newDiv = document.createElement('div')
-        newDiv.setAttribute("id", `brick-${brickId}`)(brickId % 3 === 2)
-          ? (newDiv.dataset.foundation = true)
-          : null;
-        bodyElem.appendChild(newDiv)
-        brickId++
-        (brickId == bricks + 1) ? clearInterval(buildInterval) : null
-    },100)
+const build = function (numBricks) {
+    let body = document.getElementsByTagName("body")[0];
+    let bricks = 1;
+    let buildInterval = setInterval(() => {
+        let brick = document.createElement("div");
+        brick.setAttribute("id", "brick-" + bricks);
+        bricks % 3 === 2 ? (brick.dataset.foundation = true) : null;
+        body.appendChild(brick);
+        bricks++;
+        (bricks > numBricks) ? clearInterval(buildInterval) : null
+    }, 100);
 }
-
 const repair = function (ids) {
     ids.array.forEach(element => {
         let brickDiv = document.getElementById(element)
