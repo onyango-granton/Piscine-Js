@@ -10,12 +10,12 @@ const build = function (numBricks) {
         (bricks > numBricks) ? clearInterval(buildInterval) : null
     }, 100);
 }
-const repair = function (ids) {
-    ids.array.forEach(element => {
+const repair = function (...ids) {
+    ids.forEach(element => {
         let brickDiv = document.getElementById(element)
         brickDiv.getAttribute("foundation")
-          ? brickDiv.setAttribute("repaired", "in progress")
-          : brickDiv.setAttribute("repaired", true);
+          ? brickDiv.dataset.repaired = "in progress"
+          : brickDiv.dataset.repaired = true
     });
 }
 
