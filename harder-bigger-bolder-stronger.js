@@ -12,7 +12,7 @@ const generateLetters = function () {
       } else {
           newDiv.style.fontWeight = 600
       }
-      bodyTag.append(newDiv)
+      bodyTag.appendChild(newDiv)
     fontSize++;
   }
 };
@@ -22,3 +22,5 @@ function getRandomUppercaseLetter() {
   const randomIndex = Math.floor(Math.random() * letters.length);
   return letters[randomIndex];
 }
+
+export {generateLetters}
