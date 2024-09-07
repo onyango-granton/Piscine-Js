@@ -1,7 +1,7 @@
 const getArchitects = function () {
     return [
-        document.getElementsByTagName("a"),
-        document.getElementsByTagName("span")
+        document.querySelectorAll("a"),
+        document.querySelectorAll("span")
     ]
 }
 
