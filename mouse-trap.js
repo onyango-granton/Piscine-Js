@@ -36,7 +36,7 @@ class Circle {
     if (this.isTrapped || wasTrapped) {
       this.element.style.background = "var(--purple)";
     } else {
-      this.element.style.background = "white";
+      this.element.style.background = "var(--purple)";
     }
   }
 
