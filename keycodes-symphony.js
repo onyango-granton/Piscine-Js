@@ -1,46 +1,48 @@
+document.addEventListener("keydown", compose);
+
 function compose(event) {
-  const SmallLetters = /[abcdefghijkmnopqrstuvwxyz]/;
+  if (!event) return;
+
   const key = event.key;
+  const keyCode = key.charCodeAt(0);
 
-  if (SmallLetters.test(key)) {
-    createNote(key);
+  if (isLetter(keyCode)) {
+    createNote(key, keyCode);
   } else if (key === "Backspace") {
-    deleteLastNote();
+    removeLastNote();
   } else if (key === "Escape") {
-    clearAllNotes();
+    removeAllNotes();
   }
 }
 
-function createNote(letter) {
-  const noteDiv = document.createElement("div");
-  noteDiv.className = "note";
-  noteDiv.textContent = letter;
-
-  const color = generateColorFromLetter(letter);
-  noteDiv.style.backgroundColor = color;
-
-  document.body.appendChild(noteDiv);
+function isLetter(keyCode) {
+  return keyCode >= 97 && keyCode <= 122;
 }
 
-function generateColorFromLetter(letter) {
-    return `rgb(${
-            (255 / 26) * (letter.charCodeAt(0) - 97)
-        }, ${(255 / 26) * (letter.charCodeAt(0) - 97)}, ${
-            (255 / 26) * (letter.charCodeAt(0) - 97)
-        })`
+function createNote(key, keyCode) {
+  const div = document.createElement("div");
+  div.classList.add("note");
+  div.style.backgroundColor = generateBackgroundColor(keyCode);
+  div.textContent = key;
+  document.body.appendChild(div);
 }
 
-function deleteLastNote() {
-  const notes = document.querySelectorAll(".note");
+function generateBackgroundColor(keyCode) {
+  const intensity = (255 / 26) * (keyCode - 97);
+  return `rgb(${intensity}, ${intensity}, ${intensity})`;
+}
+
+function removeLastNote() {
+  const notes = document.getElementsByClassName("note");
   if (notes.length > 0) {
-    const lastNote = notes[notes.length - 1];
-    lastNote.remove();
+    notes[notes.length - 1].remove();
+  }
+}
+function removeAllNotes() {
+  const notes = document.getElementsByClassName("note");
+  while (notes.length > 0) {
+    notes[0].remove();
   }
 }
 
-function clearAllNotes() {
-  const notes = document.querySelectorAll(".note");
-  notes.forEach((note) => note.remove());
-}
-
-export{compose}
+export { compose };
