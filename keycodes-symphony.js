@@ -1,5 +1,3 @@
-document.addEventListener("keydown", compose);
-
 function compose(event) {
   const SmallLetters = /[abcdefghijkmnopqrstuvwxyz]/;
   const key = event.key;
@@ -25,9 +23,11 @@ function createNote(letter) {
 }
 
 function generateColorFromLetter(letter) {
-  const charCode = letter.charCodeAt(0);
-  const hue = (charCode * 10) % 360; 
-  return `hsl(${hue}, 100%, 50%)`;
+    return `rgb(${
+            (255 / 26) * (letter.charCodeAt(0) - 97)
+        }, ${(255 / 26) * (letter.charCodeAt(0) - 97)}, ${
+            (255 / 26) * (letter.charCodeAt(0) - 97)
+        })`
 }
 
 function deleteLastNote() {
