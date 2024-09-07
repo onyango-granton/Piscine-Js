@@ -1,3 +1,8 @@
+// Constants
+const CIRCLE_DIAMETER = 50;
+const CIRCLE_RADIUS = CIRCLE_DIAMETER / 2;
+
+// Global variables
 let circles = [];
 let box;
 
@@ -5,45 +10,45 @@ class Circle {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.diameter = 50;
+    this.diameter = CIRCLE_DIAMETER;
     this.isTrapped = false;
-    this.HTML = this.createHTML();
+    this.element = this.createCircleElement();
+    this.updatePosition();
+    this.updateTrappedState();
     circles.push(this);
   }
 
-  createHTML() {
-    const div = document.createElement("div");
-    div.classList.add("circle");
-    div.style.position = "absolute";
-    div.style.top = `${this.y}px`;
-    div.style.left = `${this.x}px`;
-    div.style.background = "white";
-    document.body.appendChild(div);
-    return div;
+  createCircleElement() {
+    const element = document.createElement("div");
+    element.classList.add("circle");
+    element.style.position = "absolute";
+    document.body.appendChild(element);
+    return element;
+  }
+
+  updatePosition() {
+    this.element.style.top = `${this.y}px`;
+    this.element.style.left = `${this.x}px`;
+  }
+
+  updateTrappedState() {
+    this.isTrapped = this.isInsideBox(this.x, this.y);
+    this.element.style.background = this.isTrapped ? "var(--purple)" : "white";
   }
 
   move(x, y) {
-    if (this.isInsideBox(x, y) || !this.isTrapped) {
-      this.updatePosition(x, y);
+    if (!this.isTrapped || this.isInsideBox(x, y)) {
+      this.x = x;
+      this.y = y;
     } else {
       if (this.isInsideBox(x, this.y)) {
-        this.updatePosition(x, this.y);
+        this.x = x;
       } else if (this.isInsideBox(this.x, y)) {
-        this.updatePosition(this.x, y);
+        this.y = y;
       }
     }
-  }
-
-  updatePosition(x, y) {
-    this.x = x;
-    this.y = y;
-    this.HTML.style.top = `${this.y}px`;
-    this.HTML.style.left = `${this.x}px`;
-  }
-
-  checkTrapped() {
-    this.isTrapped = this.isInsideBox(this.x, this.y);
-    this.HTML.style.background = this.isTrapped ? "var(--purple)" : "white";
+    this.updatePosition();
+    this.updateTrappedState();
   }
 
   isInsideBox(x, y) {
@@ -58,40 +63,55 @@ class Circle {
 
 class Box {
   constructor() {
-    this.HTML = this.createHTML();
-    this.x = this.HTML.offsetLeft - this.HTML.offsetWidth / 2 - 1;
-    this.y = this.HTML.offsetTop - this.HTML.offsetHeight / 2 - 1;
-    this.width = this.HTML.offsetWidth + 1;
-    this.height = this.HTML.offsetHeight + 1;
+    this.element = this.createBoxElement();
+    this.updateDimensions();
   }
 
-  createHTML() {
-    const div = document.createElement("div");
-    div.classList.add("box");
-    div.style.position = "absolute";
-    div.style.top = "50%";
-    div.style.left = "50%";
-    div.style.transform = "translate(-50%, -50%)";
-    document.body.appendChild(div);
-    return div;
+  createBoxElement() {
+    const element = document.createElement("div");
+    element.classList.add("box");
+    element.style.position = "absolute";
+    element.style.top = "50%";
+    element.style.left = "50%";
+    element.style.transform = "translate(-50%, -50%)";
+    document.body.appendChild(element);
+    return element;
+  }
+
+  updateDimensions() {
+    const rect = this.element.getBoundingClientRect();
+    this.x = rect.left;
+    this.y = rect.top;
+    this.width = rect.width;
+    this.height = rect.height;
   }
 }
 
-document.body.addEventListener("click", (e) => createCircle(e));
-document.body.addEventListener("mousemove", (e) => moveCircle(e));
-
 function createCircle(e) {
   if (!e) return;
-  new Circle(e.clientX - 25, e.clientY - 25);
+  new Circle(e.clientX - CIRCLE_RADIUS, e.clientY - CIRCLE_RADIUS);
 }
 
 function moveCircle(e) {
   if (!e || circles.length === 0) return;
-  circles[circles.length - 1].move(e.clientX - 25, e.clientY - 25);
+  circles[circles.length - 1].move(
+    e.clientX - CIRCLE_RADIUS,
+    e.clientY - CIRCLE_RADIUS
+  );
 }
 
 function setBox() {
   box = new Box();
 }
 
-export { createCircle, moveCircle, setBox };
+function initializeEventListeners() {
+  document.body.addEventListener("click", createCircle);
+  document.body.addEventListener("mousemove", moveCircle);
+}
+
+function initialize() {
+  setBox();
+  initializeEventListeners();
+}
+
+export { initialize };
