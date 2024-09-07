@@ -1,113 +1,79 @@
-// Constants
-const CIRCLE_DIAMETER = 50;
-
-// Global variables
-let circles = [];
 let box;
-
-class Circle {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.diameter = CIRCLE_DIAMETER;
-    this.isTrapped = false;
-    this.element = this.createCircleElement();
-    this.updatePosition();
-    this.updateTrappedState();
-    circles.push(this);
-  }
-
-  createCircleElement() {
-    const element = document.createElement("div");
-    element.classList.add("circle");
-    element.style.position = "absolute";
-    document.body.appendChild(element);
-    return element;
-  }
-
-  updatePosition() {
-    this.element.style.top = `${this.y}px`;
-    this.element.style.left = `${this.x}px`;
-  }
-
-  updateTrappedState() {
-    const wasTrapped = this.isTrapped;
-    this.isTrapped = this.isInsideBox(this.x, this.y);
-    if (this.isTrapped || wasTrapped) {
-      this.element.style.background = "white";
+let flag = true;
+let x;
+let y;
+let circle;
+const createCircle =function() {
+  addEventListener("click", function () {
+    circle = document.createElement("div");
+    circle.className = "circle";
+    if (flag) {
+      circle.style.background = "white";
+      circle.style.left = x;
+      circle.style.top = y;
     } else {
-      this.element.style.background = "var(--purple)";
+      circle.style.background = "var(--purple)";
+      circle.style.left = x;
+      circle.style.top = y;
     }
-  }
+    document.body.appendChild(circle);
+    flag = true;
+  });
+}
+const moveCircle = function() {
+  addEventListener("mousemove", (e) => {
+    document.querySelectorAll(".circleRem").forEach((elem) => {
+      elem.remove();
+    });
+    x = e.clientX - 25 + "px";
+    y = e.clientY - 25 + "px";
+    let circle = document.createElement("div");
+    circle.className = "circle";
+    circle.classList.add("circleRem");
+    if (flag) {
+      circle.style.background = "white";
+    } else {
+      circle.style.background = "var(--purple)";
+    }
+    circle.style.left = e.clientX - 25 + "px";
+    circle.style.top = e.clientY - 25 + "px";
 
-  move(x, y) {
-    const newX = this.isTrapped
-      ? Math.max(box.x, Math.min(x, box.x + box.width - this.diameter))
-      : x;
-    const newY = this.isTrapped
-      ? Math.max(box.y, Math.min(y, box.y + box.height - this.diameter))
-      : y;
-
-    this.x = newX;
-    this.y = newY;
-    this.updatePosition();
-    this.updateTrappedState();
-  }
-
-  isInsideBox(x, y) {
-    return (
-      x >= box.x &&
-      x + this.diameter <= box.x + box.width &&
-      y >= box.y &&
-      y + this.diameter <= box.y + box.height
-    );
-  }
+    document.body.appendChild(circle);
+    if (
+      e.clientX >= box.getBoundingClientRect().left + 25 &&
+      e.clientX <= box.getBoundingClientRect().right - 25 &&
+      e.clientY >= box.getBoundingClientRect().top + 25 &&
+      e.clientY <= box.getBoundingClientRect().bottom - 25
+    ) {
+      document.querySelector(".circle").style.background = "var(--purple)";
+      flag = false;
+    }
+    if (!flag) {
+      if (e.clientX - 25 < box.getBoundingClientRect().left) {
+        circle.style.left = box.getBoundingClientRect().left + "px";
+        document.querySelector(".circle").style.background = "var(--purple)";
+      }
+      if (e.clientX + 25 > box.getBoundingClientRect().right) {
+        circle.style.left = box.getBoundingClientRect().right - 50 + "px";
+        document.querySelector(".circle").style.background = "var(--purple)";
+      }
+      if (e.clientY - 25 < box.getBoundingClientRect().top) {
+        circle.style.top = box.getBoundingClientRect().top + "px";
+        document.querySelector(".circle").style.background = "var(--purple)";
+      }
+      if (e.clientY + 25 > box.getBoundingClientRect().bottom) {
+        circle.style.top = box.getBoundingClientRect().bottom - 50 + "px";
+        document.querySelector(".circle").style.background = "var(--purple)";
+      }
+    }
+  });
+}
+const setBox = function() {
+  box = document.createElement("div");
+  box.className = "box";
+  document.body.appendChild(box);
+  console.log(box.getBoundingClientRect().bottom);
 }
 
-class Box {
-  constructor() {
-    this.element = this.createBoxElement();
-    this.updateDimensions();
-  }
 
-  createBoxElement() {
-    const element = document.createElement("div");
-    element.classList.add("box");
-    element.style.position = "absolute";
-    element.style.top = "50%";
-    element.style.left = "50%";
-    element.style.transform = "translate(-50%, -50%)";
-    document.body.appendChild(element);
-    return element;
-  }
-
-  updateDimensions() {
-    const rect = this.element.getBoundingClientRect();
-    this.x = rect.left;
-    this.y = rect.top;
-    this.width = rect.width;
-    this.height = rect.height;
-  }
-}
-
-function createCircle(e) {
-  if (!e) return;
-  new Circle(e.clientX - CIRCLE_DIAMETER / 2, e.clientY - CIRCLE_DIAMETER / 2);
-}
-
-function moveCircle(e) {
-  if (!e || circles.length === 0) return;
-  circles[circles.length - 1].move(
-    e.clientX - CIRCLE_DIAMETER / 2,
-    e.clientY - CIRCLE_DIAMETER / 2
-  );
-}
-
-function setBox() {
-  box = new Box();
-}
-
-document.body.addEventListener("click", createCircle);
-document.body.addEventListener("mousemove", moveCircle);
-
-export { createCircle, moveCircle, setBox };
+export {setBox,moveCircle,createCircle}
