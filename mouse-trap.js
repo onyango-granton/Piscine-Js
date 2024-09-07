@@ -1,6 +1,5 @@
 // Constants
 const CIRCLE_DIAMETER = 50;
-const CIRCLE_RADIUS = CIRCLE_DIAMETER / 2;
 
 // Global variables
 let circles = [];
@@ -37,11 +36,14 @@ class Circle {
   }
 
   move(x, y) {
-    if (!this.isTrapped || this.isInsideBox(x, y)) {
+    if (!this.isTrapped) {
       this.x = x;
       this.y = y;
     } else {
-      if (this.isInsideBox(x, this.y)) {
+      if (this.isInsideBox(x, y)) {
+        this.x = x;
+        this.y = y;
+      } else if (this.isInsideBox(x, this.y)) {
         this.x = x;
       } else if (this.isInsideBox(this.x, y)) {
         this.y = y;
@@ -80,23 +82,23 @@ class Box {
 
   updateDimensions() {
     const rect = this.element.getBoundingClientRect();
-    this.x = rect.left;
-    this.y = rect.top;
-    this.width = rect.width;
-    this.height = rect.height;
+    this.x = rect.left - 1; // -1 to account for the border
+    this.y = rect.top - 1;
+    this.width = rect.width + 1; // +1 to account for the border
+    this.height = rect.height + 1;
   }
 }
 
 function createCircle(e) {
   if (!e) return;
-  new Circle(e.clientX - CIRCLE_RADIUS, e.clientY - CIRCLE_RADIUS);
+  new Circle(e.clientX - CIRCLE_DIAMETER / 2, e.clientY - CIRCLE_DIAMETER / 2);
 }
 
 function moveCircle(e) {
   if (!e || circles.length === 0) return;
   circles[circles.length - 1].move(
-    e.clientX - CIRCLE_RADIUS,
-    e.clientY - CIRCLE_RADIUS
+    e.clientX - CIRCLE_DIAMETER / 2,
+    e.clientY - CIRCLE_DIAMETER / 2
   );
 }
 
@@ -104,14 +106,7 @@ function setBox() {
   box = new Box();
 }
 
-function initializeEventListeners() {
-  document.body.addEventListener("click", createCircle);
-  document.body.addEventListener("mousemove", moveCircle);
-}
+document.body.addEventListener("click", createCircle);
+document.body.addEventListener("mousemove", moveCircle);
 
-function initialize() {
-  setBox();
-  initializeEventListeners();
-}
-
-export { initialize };
+export { createCircle, moveCircle, setBox };
