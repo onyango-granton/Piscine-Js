@@ -34,7 +34,7 @@ class Circle {
     const wasTrapped = this.isTrapped;
     this.isTrapped = this.isInsideBox(this.x, this.y);
     if (this.isTrapped || wasTrapped) {
-      this.element.style.background = "var(--purple)";
+      this.element.style.background = "white";
     } else {
       this.element.style.background = "var(--purple)";
     }
