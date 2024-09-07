@@ -1,54 +1,97 @@
-let lastCircle = null;
-const box = setBox();
+let circles = [];
+let box;
 
-document.addEventListener("click", (event) => {
-  createCircle(event.clientX, event.clientY);
-});
+class Circle {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.diameter = 50;
+    this.isTrapped = false;
+    this.HTML = this.createHTML();
+    circles.push(this);
+  }
 
-document.addEventListener("mousemove", (event) => {
-  moveCircle(event.clientX, event.clientY);
-});
+  createHTML() {
+    const div = document.createElement("div");
+    div.classList.add("circle");
+    div.style.position = "absolute";
+    div.style.top = `${this.y}px`;
+    div.style.left = `${this.x}px`;
+    div.style.background = "white";
+    document.body.appendChild(div);
+    return div;
+  }
 
-function createCircle(x, y) {
-  const circle = document.createElement("div");
-  circle.classList.add("circle");
-  circle.style.left = `${x - 25}px`;
-  circle.style.top = `${y - 25}px`;
-  document.body.appendChild(circle);
-  lastCircle = circle;
+  move(x, y) {
+    if (this.isInsideBox(x, y) || !this.isTrapped) {
+      this.updatePosition(x, y);
+    } else {
+      if (this.isInsideBox(x, this.y)) {
+        this.updatePosition(x, this.y);
+      } else if (this.isInsideBox(this.x, y)) {
+        this.updatePosition(this.x, y);
+      }
+    }
+  }
+
+  updatePosition(x, y) {
+    this.x = x;
+    this.y = y;
+    this.HTML.style.top = `${this.y}px`;
+    this.HTML.style.left = `${this.x}px`;
+  }
+
+  checkTrapped() {
+    this.isTrapped = this.isInsideBox(this.x, this.y);
+    this.HTML.style.background = this.isTrapped ? "var(--purple)" : "white";
+  }
+
+  isInsideBox(x, y) {
+    return (
+      x > box.x &&
+      x + this.diameter < box.x + box.width &&
+      y > box.y &&
+      y + this.diameter < box.y + box.height
+    );
+  }
 }
 
-function moveCircle(x, y) {
-  if (lastCircle) {
-    lastCircle.style.left = `${x - 25}px`;
-    lastCircle.style.top = `${y - 25}px`;
-    checkCircleInBox(lastCircle, box);
+class Box {
+  constructor() {
+    this.HTML = this.createHTML();
+    this.x = this.HTML.offsetLeft - this.HTML.offsetWidth / 2 - 1;
+    this.y = this.HTML.offsetTop - this.HTML.offsetHeight / 2 - 1;
+    this.width = this.HTML.offsetWidth + 1;
+    this.height = this.HTML.offsetHeight + 1;
   }
+
+  createHTML() {
+    const div = document.createElement("div");
+    div.classList.add("box");
+    div.style.position = "absolute";
+    div.style.top = "50%";
+    div.style.left = "50%";
+    div.style.transform = "translate(-50%, -50%)";
+    document.body.appendChild(div);
+    return div;
+  }
+}
+
+document.body.addEventListener("click", (e) => createCircle(e));
+document.body.addEventListener("mousemove", (e) => moveCircle(e));
+
+function createCircle(e) {
+  if (!e) return;
+  new Circle(e.clientX - 25, e.clientY - 25);
+}
+
+function moveCircle(e) {
+  if (!e || circles.length === 0) return;
+  circles[circles.length - 1].move(e.clientX - 25, e.clientY - 25);
 }
 
 function setBox() {
-  const box = document.createElement("div");
-  box.classList.add("box");
-  box.style.left = `${window.innerWidth / 2 - 100}px`;
-  box.style.top = `${window.innerHeight / 2 - 100}px`;
-  document.body.appendChild(box);
-  return box;
+  box = new Box();
 }
 
-function checkCircleInBox(circle, box) {
-  const circleRect = circle.getBoundingClientRect();
-  const boxRect = box.getBoundingClientRect();
-
-  if (
-    circleRect.left >= boxRect.left &&
-    circleRect.right <= boxRect.right &&
-    circleRect.top >= boxRect.top &&
-    circleRect.bottom <= boxRect.bottom
-  ) {
-    circle.style.backgroundColor = "var(--purple)";
-    circle.style.pointerEvents = "none";
-  }
-}
-
-
-export {createCircle, moveCircle, setBox}
+export { createCircle, moveCircle, setBox };
