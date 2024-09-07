@@ -1,114 +1,81 @@
-export function initializeColorPicker() {
-  const colorDisplay = createColorDisplay();
-  const svgContainer = createSVGContainer();
-  const crosshairX = createCrosshairLine("axisX");
-  const crosshairY = createCrosshairLine("axisY");
+document.addEventListener("mousemove", (e) => {
+  pick(e);
+});
 
-  svgContainer.appendChild(crosshairX);
-  svgContainer.appendChild(crosshairY);
-  document.body.appendChild(svgContainer);
+document.addEventListener("click", (e) => {
+  pick(e);
+  copyHSL();
+});
 
-  addEventListener("mousemove", handleMouseMove);
-  addEventListener("click", handleClick);
+const hslDiv = document.createElement("div");
+hslDiv.classList.add("hsl");
+document.body.appendChild(hslDiv);
+
+const hueDiv = document.createElement("div");
+hueDiv.classList.add("hue", "text");
+document.body.appendChild(hueDiv);
+
+const luminosityDiv = document.createElement("div");
+luminosityDiv.classList.add("luminosity", "text");
+document.body.appendChild(luminosityDiv);
+
+const svgns = "http://www.w3.org/2000/svg";
+const svg = document.createElement("svg");
+svg.id = "svg";
+svg.setAttribute("width", "100%");
+svg.setAttribute("height", "100%");
+svg.setAttribute("viewBox", "0 0 100% 100%");
+svg.setAttribute("preserveAspectRatio", "none");
+
+const axisX = document.createElementNS(svgns, "line");
+axisX.id = "axisX";
+axisX.setAttribute("x1", "0");
+axisX.setAttribute("y1", "0");
+axisX.setAttribute("x2", "0");
+axisX.setAttribute("y2", "100%");
+axisX.setAttribute("stroke", "red");
+axisX.setAttribute("stroke-width", "3");
+svg.appendChild(axisX);
+
+const axisY = document.createElementNS(svgns, "line");
+axisY.id = "axisY";
+axisY.setAttribute("x1", "0");
+axisY.setAttribute("y1", "0");
+axisY.setAttribute("x2", "100%");
+axisY.setAttribute("y2", "0");
+axisY.setAttribute("stroke", "red");
+axisY.setAttribute("stroke-width", "3");
+svg.appendChild(axisY);
+
+document.body.appendChild(svg);
+
+function pick(e) {
+  if (e === undefined) return;
+  const mouseX = e.clientX;
+  const mouseY = e.clientY;
+  const hue = Math.round((mouseX / window.innerWidth) * 360);
+  const luminosity = Math.round((mouseY / window.innerHeight) * 100);
+  const hsl = `hsl(${hue}, 100%, ${luminosity}%)`;
+  document.body.style.background = hsl;
+  hslDiv.innerHTML = hsl;
+  hueDiv.innerHTML = `${hue}`;
+  luminosityDiv.innerHTML = `${luminosity}`;
+  drawLines(mouseX, mouseY);
 }
 
-function createColorDisplay() {
-  const display = document.createElement("div");
-  display.className = "text hsl";
-  document.body.appendChild(display);
-  return display;
+function drawLines(x, y) {
+  axisX.setAttribute("x1", x);
+  axisX.setAttribute("x2", x);
+  axisY.setAttribute("y1", y);
+  axisY.setAttribute("y2", y);
 }
 
-function createSVGContainer() {
-  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.setAttributeNS(null, "height", window.innerHeight);
-  svg.setAttributeNS(null, "width", window.innerWidth);
-  return svg;
+async function copyHSL() {
+  try {
+    await navigator.clipboard.writeText(hslDiv.innerHTML);
+  } catch (err) {
+    console.error("Failed to copy: ", err);
+  }
 }
 
-function createCrosshairLine(id) {
-  const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-  line.setAttributeNS(null, "id", id);
-  line.setAttributeNS(null, "x1", 0);
-  line.setAttributeNS(null, "y1", 0);
-  line.setAttributeNS(null, "x2", 0);
-  line.setAttributeNS(null, "y2", 0);
-  line.style.stroke = "white";
-  line.style.strokeWidth = 1;
-  return line;
-}
-
-function handleMouseMove(event) {
-  removeExistingElements();
-  updateCrosshair(event);
-  const hue = calculateHue(event.clientX);
-  const luminosity = calculateLuminosity(event.clientY);
-  updateBackgroundColor(hue, luminosity);
-  displayColorInfo(hue, luminosity);
-}
-
-function removeExistingElements() {
-  document
-    .querySelectorAll(".hue, .hsl, .luminosity")
-    .forEach((element) => element.remove());
-}
-
-function updateCrosshair(event) {
-  const crosshairX = document.getElementById("axisX");
-  const crosshairY = document.getElementById("axisY");
-
-  crosshairY.setAttributeNS(null, "x1", 0);
-  crosshairY.setAttributeNS(null, "y1", event.clientY);
-  crosshairY.setAttributeNS(null, "x2", window.innerWidth);
-  crosshairY.setAttributeNS(null, "y2", event.clientY);
-
-  crosshairX.setAttributeNS(null, "x1", event.clientX);
-  crosshairX.setAttributeNS(null, "y1", 0);
-  crosshairX.setAttributeNS(null, "x2", event.clientX);
-  crosshairX.setAttributeNS(null, "y2", window.innerHeight);
-}
-
-function calculateHue(x) {
-  return Math.round((x / window.innerWidth) * 360);
-}
-
-function calculateLuminosity(y) {
-  return Math.round((y / window.innerHeight) * 100);
-}
-
-function updateBackgroundColor(hue, luminosity) {
-  document.body.style.background = `hsl(${hue}, 50%, ${luminosity}%)`;
-}
-
-function displayColorInfo(hue, luminosity) {
-  const hueDisplay = createInfoElement("hue", `hue<br>${hue}`);
-  const hslDisplay = createInfoElement(
-    "hsl",
-    `hsl(${hue}, 50%, ${luminosity}%)`
-  );
-  const luminosityDisplay = createInfoElement(
-    "luminosity",
-    `${luminosity}<br>luminosity`
-  );
-
-  document.body.appendChild(hueDisplay);
-  document.body.appendChild(hslDisplay);
-  document.body.appendChild(luminosityDisplay);
-}
-
-function createInfoElement(className, innerHTML) {
-  const element = document.createElement("div");
-  element.className = `${className} text`;
-  element.innerHTML = innerHTML;
-  return element;
-}
-
-function handleClick() {
-  const hslValue = document.getElementsByClassName("hsl")[0].innerHTML;
-  const tempInput = document.createElement("input");
-  document.body.appendChild(tempInput);
-  tempInput.value = hslValue;
-  tempInput.select();
-  document.execCommand("copy");
-  document.body.removeChild(tempInput);
-}
+export { pick };
