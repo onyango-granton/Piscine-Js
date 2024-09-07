@@ -4,7 +4,7 @@ const generateClasses = function () {
   const styleTag = document.createElement("style");
   let cssTags = "";
   colors.forEach((color) => {
-    cssTags += `.${color} {background: ${color};} \n`;
+    cssTags += `.${color} {\n  background: ${color};\n }\n\n`;
   });
 
   styleTag.innerHTML = cssTags;
@@ -26,7 +26,7 @@ const generateColdShades = function () {
   colors.array.forEach((color) => {
     if (coldShades.some((shade) => color.toLowerCase().includes(shade))) {
       let newDiv = document.createElement("div");
-      newDiv.className = color;
+      newDiv.classList.add(color);
       newDiv.innerHTML = color;
       bodyTag.appendChild(newDiv);
     }
