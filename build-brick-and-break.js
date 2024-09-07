@@ -5,7 +5,7 @@ const build = function (bricks) {
         let newDiv = document.createElement('div')
         newDiv.setAttribute('id', `brick-${brickId}`)
             (brickId % 3 === 2) ? newDiv.setAttribute('foundation', true) : false
-        bodyElem.append(newDiv)
+        bodyElem.appendChild(newDiv)
         brickId++
         (brickId == bricks + 1) ? clearInterval(buildInterval) : false
     },100)
