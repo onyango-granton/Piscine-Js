@@ -1,4 +1,4 @@
-import { colors } from "fifty-shades-of-cold.data.js";
+import { colors } from "./fifty-shades-of-cold.data.js";
 
 const generateClasses = function () {
   const styleTag = document.createElement("style");
