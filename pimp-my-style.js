@@ -1,25 +1,20 @@
 import { styles } from "./pimp-my-style.data.js";
+var count = 0;
 
-let count = 0;
-
-const pimp = function() {
-  const button = document.querySelector("button.button");
-  if (!button) return; // Guard clause to handle missing button
-
-  if (button.classList.contains("unpimp")) {
-    // Reverse the process
-    button.classList.remove(styles[count]);
-    count = (count - 1 + styles.length) % styles.length;
-    if (count === 0) {
-      button.classList.toggle("unpimp");
-    }
-  } else {
-    // Apply the next style
+function pimp() {
+  var button = document.querySelector("button.button");
+  if (!button.classList.contains("unpimp")) {
     button.classList.add(styles[count]);
-    count = (count + 1) % styles.length;
+    count++;
+  } else {
+    count--;
+    button.classList.remove(styles[count]);
     if (count === 0) {
       button.classList.toggle("unpimp");
     }
+  }
+  if (count === styles.length) {
+    button.classList.toggle("unpimp");
   }
 }
 
