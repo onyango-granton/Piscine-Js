@@ -1,7 +1,10 @@
 function pick(obj, stringArr) {
   let resObj = {};
   Object.entries(obj).forEach(([key, value]) => {
-    if (stringArr.includes(key)) {
+    if (Array.isArray(stringArr) && stringArr.includes(key)) {
+      // console.log(key)
+      resObj[key] = value;
+    } else if (stringArr === key) {
       resObj[key] = value;
     }
   });
@@ -20,3 +23,6 @@ function omit(obj, stringArr) {
 
 // const newUser = { ageVerified: false , age : 32}
 // console.log(pick(newUser,'age'))
+
+// const user = { firstName: 'John', lastName: 'Doe', age: 32, ageVerified: false }
+// console.log(pick(user, "ageVerifiedD"));
