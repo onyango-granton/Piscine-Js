@@ -17,3 +17,6 @@ function omit(obj, stringArr) {
   });
   return resObj;
 }
+
+// const newUser = { ageVerified: false , age : 32}
+// console.log(pick(newUser,'age'))
