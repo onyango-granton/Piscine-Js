@@ -68,11 +68,12 @@ const filterCurry = function (func) {
 };
 
 const reduceScore = function (obj, initialValue) {
-  initialValue = null ? (initialValue = 0) : null;
+  initialValue == null ? initialValue = 0 : null;
   Object.entries(obj).forEach(([key]) => {
     if (obj[key].isForceUser) {
       Object.entries(obj[key]).forEach(([key, value]) => {
-        if (key != "id" && key != "isForceUser") {
+          if (key != "id" && key != "isForceUser") {
+            console.log(initialValue)
           initialValue += value;
         }
       });
@@ -105,3 +106,5 @@ const mapAverage = function (obj) {
 
   return shallowCopy;
 };
+
+
