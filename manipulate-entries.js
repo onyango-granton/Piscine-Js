@@ -11,7 +11,7 @@ const filterEntries = function (obj, func) {
 const mapEntries = function (obj, func) {
   const shallowCopy = { ...obj };
   Object.entries(shallowCopy).forEach(([key, value]) => {
-    shallowCopy[func([key, value])] = shallowCopy[key];
+    shallowCopy[func([key, value])[0]] = func([key,value])[1];
     delete shallowCopy[key];
   });
   return shallowCopy;
@@ -86,3 +86,12 @@ const cartTotal = function (obj) {
 
   return nutritionCopy;
 };
+
+
+const groceriesCart1 = { oil: 500, onion: 230, garlic: 220, paprika: 480 }
+console.log(
+  mapEntries(groceriesCart1, ([k, v]) => [
+    v > 250 ? `✔️${k}` : `❌${k}`,
+    v - 250,
+  ])
+);
