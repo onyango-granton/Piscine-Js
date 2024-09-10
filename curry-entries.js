@@ -106,7 +106,7 @@ const mapAverage = function (obj) {
         keySum += value;
       }
     });
-    shallowCopy[key].avarageScore = keySum / 2;
+    shallowCopy[key].averageScore = keySum / 2;
   });
 
   return shallowCopy;
