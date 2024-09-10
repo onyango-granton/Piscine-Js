@@ -29,11 +29,28 @@ const mapCurry = function (func) {
 
 const reduceCurry = function (func) {
     return function (obj, initialValue) {
-        initialValue == null ? (initialValue = 0) : null;
         let shallowCopy = { ...obj };
-        Object.values(shallowCopy).forEach((value) => {
-          initialValue += func(0, value);
-        });
+        let keyArr = Object.keys(shallowCopy);
+        let valArr = Object.values(shallowCopy);
+
+        if (initialValue == null) {
+          initialValue = keyArr[0] + valArr[0];
+          for (let i = 1; i < keyArr.length; ) {
+            for (let j = 1; j < valArr.length; j++) {
+              initialValue = func(initialValue, [keyArr[i], `${valArr[i]}`]);
+              i++;
+            }
+            break;
+          }
+        } else {
+          for (let i = 0; i < keyArr.length; ) {
+            for (let j = 0; j < valArr.length; j++) {
+              initialValue = func(initialValue, [keyArr[i], `${valArr[i]}`]);
+              i++;
+            }
+            break;
+          }
+        }
 
         return initialValue;
     }
