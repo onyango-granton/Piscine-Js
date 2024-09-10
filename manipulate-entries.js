@@ -11,7 +11,7 @@ const filterEntries = function (obj, func) {
 const mapEntries = function (obj, func) {
   const shallowCopy = { ...obj };
   Object.entries(shallowCopy).forEach(([key, value]) => {
-    shallowCopy[func([key, value])[0]] = func([key,value])[1];
+    shallowCopy[func([key, value])[0]] = func([key, value])[1];
     delete shallowCopy[key];
   });
   return shallowCopy;
@@ -80,18 +80,17 @@ const cartTotal = function (obj) {
 
   Object.entries(shallowCopy).forEach(([key, value]) => {
     Object.entries(nutritionCopy[key]).forEach(([key1, value1]) => {
-      nutritionCopy[key][key1] = (value1 * value) / 100;
+      let total = value * value1;
+      let totalString = total.toString().split(".");
+
+      if (totalString.length > 1) {
+        totalString[1] = totalString[1].slice(0, 1);
+        total = Number(totalString.join("."));
+      }
+
+      nutritionCopy[key][key1] = total / 100;
     });
   });
 
   return nutritionCopy;
 };
-
-
-const groceriesCart1 = { oil: 500, onion: 230, garlic: 220, paprika: 480 }
-console.log(
-  mapEntries(groceriesCart1, ([k, v]) => [
-    v > 250 ? `✔️${k}` : `❌${k}`,
-    v - 250,
-  ])
-);
