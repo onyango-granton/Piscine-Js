@@ -1,3 +1,7 @@
 const deepCopy = function (obj) {
-    return {...obj}
-}
+  if (Array.isArray(obj)) {
+    return [...obj];
+  } else {
+    return { ...obj };
+  }
+};
