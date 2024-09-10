@@ -1,3 +1,3 @@
 const deepCopy = function (obj) {
-    return {...obj}
+    return Object.values({...obj})
 }
