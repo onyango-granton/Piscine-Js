@@ -23,7 +23,21 @@ function pronoun(string) {
     arr.push(word);
   });
 
-  words = arr;
+    words = arr;
+    
+    arr = []
+    words.forEach((word) => {
+        if (word.includes(',')) {
+            word = word.slice(0, word.length - 1)
+            arr.push(word)
+        } else {
+            arr.push(word)
+        }
+    })
+
+    words = arr
+
+    console.log(words)
 
   for (let i = 0; i < words.length; i++) {
     const match = regexPronoun.exec(" " + words[i] + " ");
@@ -46,3 +60,8 @@ function pronoun(string) {
 
   return result;
 }
+
+
+console.log(
+  pronoun("I buy,\ni to,\nYOU buy,\nit have,\nIt buys,\nit is,\nyou go")
+);
