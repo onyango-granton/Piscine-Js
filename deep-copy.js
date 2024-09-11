@@ -5,13 +5,15 @@ const deepCopy = function (obj) {
       arrCopy[i] = deepCopy(obj[i])
     }
     return arrCopy;
-  } else {
+  } else if (typeof(obj) === 'object' && !Array.isArray(obj)){
     let objCopy = {}
     for (let key in obj) {
       objCopy[key] = deepCopy(obj[key])
     }
     return objCopy;
-  } 
+  } else {
+    return obj
+  }
 };
 
 
@@ -24,4 +26,6 @@ const test11 = function () {
   return obj[1][1] !== copy[1][1];
 }
 
-console.log(test11())
+//{console.log(test11())}
+
+console.log(deepCopy({ user: "mika", age: 37 }));
