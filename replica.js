@@ -1,18 +1,19 @@
-const replica = function (...args) {
-    let res = {}
-    for (let i = 0; i < args.length; i++){
-        if (typeof (args[i]) == "object") {
-            for (let j = 0; j < args[i].length; i++){
-                res = Object.assign(res, ...args[i][j])
-            }
-            continue
+function replica(target, ...sources) {
+  sources.forEach((source) => {
+    Object.keys(source).forEach((key) => {
+      if (
+        typeof source[key] === "object" &&
+        source[key] !== null &&
+        !Array.isArray(source[key])
+      ) {
+        if (!target[key]) {
+          target[key] = {};
         }
-        res = Object.assign(res, {...args[i] })
-    }
-    //console.log(res)
-    return res
+        replica(target[key], source[key]);
+      } else {
+        target[key] = source[key];
+      }
+    });
+  });
+  return target;
 }
-
-
-
-console.log(replica({ a: { b: 1, c: 2 } }, { a: { c: 23 } }), { a: { b: 1, c: 23 } })
