@@ -1,8 +1,10 @@
 const deepCopy = function (obj) {
   if (Array.isArray(obj)) {
-    return Object.freeze([...obj]);
+    return [...obj];
+  } else if (typeof(obj) === 'object' && !Array.isArray(obj)){
+    return {...obj };
   } else {
-    return Object.freeze({ ...obj });
+    return obj
   }
 };
 
