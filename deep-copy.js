@@ -7,7 +7,7 @@ const deepCopy = function (obj) {
     return arrCopy;
   } else {
     let objCopy = {}
-    for (key in obj) {
+    for (let key in obj) {
       objCopy[key] = deepCopy(obj[key])
     }
     return objCopy;
