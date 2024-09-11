@@ -1,13 +1,18 @@
-const isObject = (a) =>
-  typeof a === "object" &&
-  !(
-    a instanceof Set ||
-    a instanceof RegExp ||
-    a instanceof Array ||
-    a instanceof Map
-  );
+function isType(n, type) {
+  return typeof n === type;
+}
+
+const isArray = (n) => isType(n, "array");
+const isObject = (n) =>
+  isType(n, "object") &&
+  !isFunction(n) &&
+  !isArray(n) &&
+  n !== null &&
+  !(n instanceof RegExp);
+const isFunction = (n) => isType(n, "function");
+
 const replica = function (target, ...sources) {
-  sources.forEach (source => {
+  sources.forEach((source) => {
     Object.entries(source).forEach(([key, value]) => {
       if (isObject(value) && isObject(target[key])) {
         replica(target[key], value);
@@ -15,6 +20,7 @@ const replica = function (target, ...sources) {
         target[key] = value;
       }
     });
-  })
+  });
   return target;
 };
+;
