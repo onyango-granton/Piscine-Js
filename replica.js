@@ -1,25 +1,26 @@
-function deepMerge(target, ...sources) {
-  if (!sources.length) return target;
-  const [source, ...rest] = sources;
+function isType(n, type) {
+  return typeof n === type;
+}
 
-  for (const key in source) {
-    if (source.hasOwnProperty(key)) {
-      if (Array.isArray(target[key]) && Array.isArray(source[key])) {
-        target[key] = target[key].concat(source[key]); // Concatenate arrays
-      } else if (
-        typeof target[key] === "object" &&
-        typeof source[key] === "object"
-      ) {
-        target[key] = deepMerge(target[key] || {}, source[key]);
+const isArray = (n) => isType(n, "array");
+const isObject = (n) =>
+  isType(n, "object") &&
+  !isFunction(n) &&
+  !isArray(n) &&
+  n !== null &&
+  !(n instanceof RegExp);
+const isFunction = (n) => isType(n, "function");
+
+function replica(target, ...sources) {
+  for (const source of sources) {
+    for (const [key, value] of Object.entries(source)) {
+      if (isObject(value)) {
+        target[key] = target[key] ?? {};
+        replica(target[key], value);
       } else {
-        target[key] = source[key];
+        target[key] = value;
       }
     }
   }
-
-  return deepMerge(target, ...rest);
-}
-
-function replica(target, ...sources) {
-  return deepMerge(target, ...sources);
+  return target;
 }
