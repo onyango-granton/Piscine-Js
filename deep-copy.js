@@ -5,7 +5,7 @@ const deepCopy = function (obj) {
       arrCopy[i] = deepCopy(obj[i])
     }
     return arrCopy;
-  } else if (typeof(obj) === 'object' && !Array.isArray(obj)){
+  } else if (typeof(obj) === 'object' && !Array.isArray(obj) && typeof(obj) !== 'function'){
     let objCopy = {}
     for (let key in obj) {
       objCopy[key] = deepCopy(obj[key])
@@ -17,15 +17,4 @@ const deepCopy = function (obj) {
 };
 
 
-const test11 = function () {
-  const r = Math.random();
-  const obj = [r, Object.freeze([r, Object.freeze([r])])];
-  const copy = deepCopy(obj);
-  //eq(copy, obj);
-  console.log(obj[1][1], copy[1][1])
-  return obj[1][1] !== copy[1][1];
-}
-
-//{console.log(test11())}
-
-console.log(deepCopy({ user: "mika", age: 37 }));
+console.log(typeof(console.log))
