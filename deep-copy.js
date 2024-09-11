@@ -5,7 +5,7 @@ const deepCopy = function (obj) {
       arrCopy[i] = deepCopy(obj[i])
     }
     return arrCopy;
-  } else if (typeof(obj) === 'object' && !Array.isArray(obj) && !(typeof(obj) === 'function')){
+  } else if (typeof(obj) === 'object' && !Array.isArray(obj) && !(typeof(obj) === 'function') && !(obj instanceof RegExp)){
     let objCopy = {}
     for (let key in obj) {
       objCopy[key] = deepCopy(obj[key])
@@ -17,4 +17,4 @@ const deepCopy = function (obj) {
 };
 
 
-console.log(typeof(console.log))
+console.log(/ghhh/ instanceof RegExp)
