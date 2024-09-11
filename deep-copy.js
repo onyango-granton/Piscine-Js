@@ -5,7 +5,7 @@ const deepCopy = function (obj) {
       arrCopy[i] = deepCopy(obj[i])
     }
     return arrCopy;
-  } else if (typeof(obj) === 'object' && !Array.isArray(obj) && typeof(obj) !== 'function'){
+  } else if (typeof(obj) === 'object' && !Array.isArray(obj) && !(typeof(obj) === 'function')){
     let objCopy = {}
     for (let key in obj) {
       objCopy[key] = deepCopy(obj[key])
