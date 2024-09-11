@@ -1,11 +1,17 @@
 const deepCopy = function (obj) {
   if (Array.isArray(obj)) {
-    return [...obj];
-  } else if (typeof(obj) === 'object' && !Array.isArray(obj)){
-    return {...obj };
+    let arrCopy = []
+    for (let i = 0; i < obj.length; i++){
+      arrCopy[i] = deepCopy(obj[i])
+    }
+    return arrCopy;
   } else {
-    return obj
-  }
+    let objCopy = {}
+    for (key in obj) {
+      objCopy[key] = deepCopy(obj[key])
+    }
+    return objCopy;
+  } 
 };
 
 
