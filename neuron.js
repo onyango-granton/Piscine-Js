@@ -1,4 +1,7 @@
 function neuron(data) {
+    if (data.length == 0) {
+        return {}
+    }
   const result = { questions: {}, orders: {} };
 
   data.forEach(item => {
@@ -37,12 +40,12 @@ function neuron(data) {
   return result;
 }
 
-console.log(
-  neuron([
-    "Questions: what is ounces? - Response: Ounce, unit of weight in the avoirdupois system",
-    "Questions: what is ounces? - Response: equal to 1/16 pound (437 1/2 grains)",
-    "Questions: what is Mud dauber - Response: Mud dauber is a name commonly applied to a number of wasps",
-    "Orders: shutdown! - Response: Yes Sr!",
-    "Orders: Quote something! - Response: Pursue what catches your heart, not what catches your eyes.",
-  ])
-);
+// console.log(
+//   neuron([
+//     "Questions: what is ounces? - Response: Ounce, unit of weight in the avoirdupois system",
+//     "Questions: what is ounces? - Response: equal to 1/16 pound (437 1/2 grains)",
+//     "Questions: what is Mud dauber - Response: Mud dauber is a name commonly applied to a number of wasps",
+//     "Orders: shutdown! - Response: Yes Sr!",
+//     "Orders: Quote something! - Response: Pursue what catches your heart, not what catches your eyes.",
+//   ])
+// );
