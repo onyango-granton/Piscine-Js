@@ -14,12 +14,10 @@ function debounce(func, wait, options) {
     throw new TypeError(FUNC_ERROR_TEXT);
   }
   wait = Number(wait) || 0;
-  if (typeof(options) == 'object') {
+  if (typeof options == "object") {
     leading = !!options.leading;
     maxing = "maxWait" in options;
-    maxWait = maxing
-      ? nativeMax(Number(options.maxWait) || 0, wait)
-      : maxWait;
+    maxWait = maxing ? nativeMax(Number(options.maxWait) || 0, wait) : maxWait;
     trailing = "trailing" in options ? !!options.trailing : trailing;
   }
 
