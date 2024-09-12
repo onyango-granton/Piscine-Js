@@ -4,7 +4,7 @@ const debounce = function (func, waitTime) {
 
   while (true){
     let countTime = Date.now()
-    if (countTime >= stopTime) {
+    if (countTime == stopTime) {
       return func
     }
   }
