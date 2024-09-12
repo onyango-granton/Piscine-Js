@@ -13,12 +13,12 @@ function debounce(func, wait, options) {
   if (typeof func != "function") {
     throw new TypeError(FUNC_ERROR_TEXT);
   }
-  wait = toNumber(wait) || 0;
+  wait = Number(wait) || 0;
   if (isObject(options)) {
     leading = !!options.leading;
     maxing = "maxWait" in options;
     maxWait = maxing
-      ? nativeMax(toNumber(options.maxWait) || 0, wait)
+      ? nativeMax(Number(options.maxWait) || 0, wait)
       : maxWait;
     trailing = "trailing" in options ? !!options.trailing : trailing;
   }
