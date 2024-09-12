@@ -1,13 +1,8 @@
-const debounce = function (func, waitTime) {
-  let time = Date.now()
-  let stopTime = time + waitTime
+function debounce(func, waitTime) {
+  let timeout;
 
-  while (true){
-    let countTime = Date.now()
-    if (countTime + 1000 >= stopTime ) {
-      return func
-    }
-  }
-
-
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), waitTime);
+  };
 }
