@@ -14,7 +14,7 @@ function debounce(func, wait, options) {
     throw new TypeError(FUNC_ERROR_TEXT);
   }
   wait = Number(wait) || 0;
-  if (isObject(options)) {
+  if (typeof(options) == 'object') {
     leading = !!options.leading;
     maxing = "maxWait" in options;
     maxWait = maxing
