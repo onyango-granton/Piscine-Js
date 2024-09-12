@@ -1,128 +1,112 @@
-function debounce(func, wait, options) {
-  var lastArgs,
-    lastThis,
-    maxWait,
-    result,
-    timerId,
-    lastCallTime,
-    lastInvokeTime = 0,
-    leading = false,
-    maxing = false,
-    trailing = true;
+function d(a, b, c) {
+  var x,
+    y,
+    z,
+    w,
+    t,
+    u,
+    v = 0,
+    p = false,
+    q = false,
+    r = true;
 
-  if (typeof func != "function") {
-    throw new TypeError(FUNC_ERROR_TEXT);
+  if (typeof a != "function") {
+    throw new TypeError("Expected a function");
   }
-  wait = Number(wait) || 0;
-  if (typeof options == "object") {
-    leading = !!options.leading;
-    maxing = "maxWait" in options;
-    maxWait = maxing ? nativeMax(Number(options.maxWait) || 0, wait) : maxWait;
-    trailing = "trailing" in options ? !!options.trailing : trailing;
-  }
-
-  function invokeFunc(time) {
-    var args = lastArgs,
-      thisArg = lastThis;
-
-    lastArgs = lastThis = undefined;
-    lastInvokeTime = time;
-    result = func.apply(thisArg, args);
-    return result;
+  b = Number(b) || 0;
+  if (typeof c == "object") {
+    p = !!c.l;
+    q = "m" in c;
+    z = q ? Math.max(Number(c.m) || 0, b) : z;
+    r = "t" in c ? !!c.t : r;
   }
 
-  function leadingEdge(time) {
-    // Reset any `maxWait` timer.
-    lastInvokeTime = time;
-    // Start the timer for the trailing edge.
-    timerId = setTimeout(timerExpired, wait);
-    // Invoke the leading edge.
-    return leading ? invokeFunc(time) : result;
+  function e(f) {
+    var g = x,
+      h = y;
+
+    x = y = undefined;
+    v = f;
+    w = a.apply(h, g);
+    return w;
   }
 
-  function remainingWait(time) {
-    var timeSinceLastCall = time - lastCallTime,
-      timeSinceLastInvoke = time - lastInvokeTime,
-      timeWaiting = wait - timeSinceLastCall;
-
-    return maxing
-      ? nativeMin(timeWaiting, maxWait - timeSinceLastInvoke)
-      : timeWaiting;
+  function f(i) {
+    v = i;
+    t = setTimeout(k, b);
+    return p ? e(i) : w;
   }
 
-  function shouldInvoke(time) {
-    var timeSinceLastCall = time - lastCallTime,
-      timeSinceLastInvoke = time - lastInvokeTime;
+  function g(j) {
+    var k = j - u,
+      l = j - v,
+      m = b - k;
 
-    // Either this is the first call, activity has stopped and we're at the
-    // trailing edge, the system time has gone backwards and we're treating
-    // it as the trailing edge, or we've hit the `maxWait` limit.
-    return (
-      lastCallTime === undefined ||
-      timeSinceLastCall >= wait ||
-      timeSinceLastCall < 0 ||
-      (maxing && timeSinceLastInvoke >= maxWait)
-    );
+    return q ? Math.min(m, z - l) : m;
   }
 
-  function timerExpired() {
-    var time = Date.now();
-    if (shouldInvoke(time)) {
-      return trailingEdge(time);
+  function h(n) {
+    var o = n - u,
+      p = n - v;
+
+    return u === undefined || o >= b || o < 0 || (q && p >= z);
+  }
+
+  function k() {
+    var q = Date.now();
+    if (h(q)) {
+      return i(q);
     }
-    // Restart the timer.
-    timerId = setTimeout(timerExpired, remainingWait(time));
+    t = setTimeout(k, g(q));
   }
 
-  function trailingEdge(time) {
-    timerId = undefined;
+  function i(r) {
+    t = undefined;
 
-    // Only invoke if we have `lastArgs` which means `func` has been
-    // debounced at least once.
-    if (trailing && lastArgs) {
-      return invokeFunc(time);
+    if (r && x) {
+      return e(r);
     }
-    lastArgs = lastThis = undefined;
-    return result;
+    x = y = undefined;
+    return w;
   }
 
-  function cancel() {
-    if (timerId !== undefined) {
-      clearTimeout(timerId);
+  function j() {
+    if (t !== undefined) {
+      clearTimeout(t);
     }
-    lastInvokeTime = 0;
-    lastArgs = lastCallTime = lastThis = timerId = undefined;
+    v = 0;
+    x = u = y = t = undefined;
   }
 
-  function flush() {
-    return timerId === undefined ? result : trailingEdge(now());
+  function l() {
+    return t === undefined ? w : i(Date.now());
   }
 
-  function debounced() {
-    var time = Date.now()
-    let isInvoking = shouldInvoke(time);
+  function m() {
+    var q = Date.now(),
+      r = h(q);
 
-    lastArgs = arguments;
-    lastThis = this;
-    lastCallTime = time;
+    x = arguments;
+    y = this;
+    u = q;
 
-    if (isInvoking) {
-      if (timerId === undefined) {
-        return leadingEdge(lastCallTime);
+    if (r) {
+      if (t === undefined) {
+        return f(u);
       }
-      if (maxing) {
-        // Handle invocations in a tight loop.
-        clearTimeout(timerId);
-        timerId = setTimeout(timerExpired, wait);
-        return invokeFunc(lastCallTime);
+      if (q) {
+        clearTimeout(t);
+        t = setTimeout(k, b);
+        return e(u);
       }
     }
-    if (timerId === undefined) {
-      timerId = setTimeout(timerExpired, wait);
+    if (t === undefined) {
+      t = setTimeout(k, b);
     }
-    return result;
+    return w;
   }
-  debounced.cancel = cancel;
-  debounced.flush = flush;
-  return debounced;
+
+  m.cancel = j;
+  m.flush = l;
+  return m;
 }
