@@ -66,7 +66,7 @@ function debounce(func, wait, options) {
   }
 
   function timerExpired() {
-    var time = now();
+    var time = Date.now();
     if (shouldInvoke(time)) {
       return trailingEdge(time);
     }
