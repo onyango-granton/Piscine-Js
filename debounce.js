@@ -100,7 +100,7 @@ function debounce(func, wait, options) {
 
   function debounced() {
     var time = Date.now()
-      isInvoking = shouldInvoke(time);
+    let isInvoking = shouldInvoke(time);
 
     lastArgs = arguments;
     lastThis = this;
