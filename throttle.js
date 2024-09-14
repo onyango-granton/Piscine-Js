@@ -37,38 +37,34 @@ const throttle = function (func, delay) {
 // }
 
 
-const opThrottle = function (
-  func,
-  delay,
-  options = { }
-) {
-    if (options.leading == null) {
-        return() => 0
-    }
-
-    options.leading = true
-    options.trailing = true
-
+const opThrottle = function (func, delay, options = {}) {
   let timeout;
-  let lastArgs;
-  let lastThis;
+  let lastExecTime = 0;
+  const { leading = true, trailing = true } = options;
 
   return function (...args) {
-    const callNow = !timeout && options.leading;
-    lastArgs = args;
-    lastThis = this;
+    const currentTime = Date.now();
+    const hasNotBeenCalled = lastExecTime === 0;
 
-    if (!timeout) {
-      if (callNow) {
-        func.apply(lastThis, lastArgs); // Leading call
-      }
-      timeout = setTimeout(() => {
-        timeout = null;
-        if (options.trailing && lastArgs) {
-          func.apply(lastThis, lastArgs); // Trailing call
-          lastArgs = null; // Reset after trailing execution
-        }
-      }, delay);
+    if (hasNotBeenCalled && !leading) {
+      lastExecTime = currentTime;
+    }
+
+    const remainingDelay = delay - (currentTime - lastExecTime);
+
+    function exec() {
+      func.apply(this, args);
+      lastExecTime = Date.now();
+    }
+
+    if (hasNotBeenCalled && leading) {
+      exec();
+    } else if (remainingDelay <= 0) {
+      clearTimeout(timeout);
+      exec();
+    } else if (trailing) {
+      clearTimeout(timeout);
+      timeout = setTimeout(exec, remainingDelay);
     }
   };
 };
