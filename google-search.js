@@ -4,14 +4,14 @@ async function queryServers(serverName, q) {
     getJSON(`/serverName_backup?q=${q}`),
   ];
 
-  // Use Promise.race to get the first resolved promise
+
   const result = await Promise.race(promises);
   return result;
 }
 
 async function googleSearch(q) {
   try {
-    const timeout = new Promise((resolve, reject) => {
+    const timeout = new Promise((_, reject) => {
       setTimeout(() => {
         reject(new Error("timeout"));
       }, 80);
