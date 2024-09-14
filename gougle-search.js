@@ -4,7 +4,6 @@ async function queryServers(serverName, q) {
     getJSON(`/${serverName}_backup?q=${q}`),
   ];
 
-
   const result = await Promise.race(promises);
   return result;
 }
@@ -24,12 +23,11 @@ async function gougleSearch(query) {
   }, {});
 }
 
-// Helper function (assuming it's defined elsewhere)
 async function timeout(ms, promise) {
   return Promise.race([
     promise,
     new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("Timeout")), ms)
+      setTimeout(() => reject(new Error("timeout")), ms)
     ),
   ]);
 }
