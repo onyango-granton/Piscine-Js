@@ -1,14 +1,13 @@
-const all = function (object) {
-  const entries = Object.entries(object);
-
-  return Promise.all(
-    entries.map(async ([key, value]) => {
+const all = function(object) {
+  return new Promise(async (resolve, reject) => {
+    let returnresult = {};
+    for (const key in object) {
       try {
-        const resolvedValue = await value;
-        return [key, resolvedValue];
-      } catch (error) {
-        throw error; // Re-throw to be caught by Promise.all
+        returnresult[key] = await object[key];
+      } catch (e) {
+        reject(e);
       }
-    })
-  ).then((resolvedEntries) => Object.fromEntries(resolvedEntries));
-};
+    }
+    resolve(returnresult);
+  });
+}
