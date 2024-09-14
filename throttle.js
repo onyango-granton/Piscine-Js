@@ -42,27 +42,31 @@ const opThrottle = function (
   delay,
   options = { leading: true, trailing: true }
 ) {
-
   let timeout;
   let lastArgs;
   let lastThis;
+  let lastCallTime = 0;
 
   return function (...args) {
-    const callNow = !timeout && options.leading;
+    const now = Date.now();
+    const remaining = delay - (now - lastCallTime);
+
     lastArgs = args;
     lastThis = this;
 
-    if (!timeout) {
-      if (callNow) {
-        func.apply(lastThis, lastArgs); // Leading call
-      }
-      timeout = setTimeout(() => {
+    if (remaining <= 0 || remaining > delay) {
+      if (timeout) {
+        clearTimeout(timeout);
         timeout = null;
-        if (options.trailing && lastArgs) {
-          func.apply(lastThis, lastArgs); // Trailing call
-          lastArgs = null; // Reset after trailing execution
-        }
-      }, delay);
+      }
+      lastCallTime = now;
+      func.apply(lastThis, lastArgs);
+    } else if (!timeout && options.trailing) {
+      timeout = setTimeout(() => {
+        lastCallTime = options.leading ? 0 : Date.now();
+        timeout = null;
+        func.apply(lastThis, lastArgs);
+      }, remaining);
     }
   };
 };
