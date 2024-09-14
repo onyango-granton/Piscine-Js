@@ -42,6 +42,10 @@ const opThrottle = function (
   delay,
   options = { leading: true, trailing: true }
 ) {
+    if (options == null) {
+        return() => 0
+    }
+
   let timeout;
   let lastArgs;
   let lastThis;
