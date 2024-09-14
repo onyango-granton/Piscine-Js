@@ -9,28 +9,27 @@ async function queryServers(serverName, q) {
   return result;
 }
 
-async function gougleSearch(q) {
-  try {
-    const timeout = new Promise((_, reject) => {
-      setTimeout(() => {
-        reject(new Error("timeout"));
-      }, 80);
-    });
+async function gougleSearch(query) {
+  const searchTypes = ["web", "image", "video"];
 
-    const results = await Promise.all([
-      queryServers("web", q),
-      queryServers("image", q),
-      queryServers("video", q),
-    ]).then((results) => {
-      return {
-        web: results[0],
-        image: results[1],
-        video: results[2],
-      };
-    });
+  const searches = searchTypes.map((type) =>
+    timeout(80, queryServers(type, query))
+  );
 
-    return results;
-  } catch (error) {
-    return error;
-  }
+  const results = await Promise.all(searches);
+
+  return searchTypes.reduce((acc, type, index) => {
+    acc[type] = results[index];
+    return acc;
+  }, {});
+}
+
+// Helper function (assuming it's defined elsewhere)
+async function timeout(ms, promise) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Timeout")), ms)
+    ),
+  ]);
 }
