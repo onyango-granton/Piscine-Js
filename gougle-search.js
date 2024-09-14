@@ -9,7 +9,7 @@ async function queryServers(serverName, q) {
   return result;
 }
 
-async function googleSearch(q) {
+async function gougleSearch(q) {
   try {
     const timeout = new Promise((_, reject) => {
       setTimeout(() => {
