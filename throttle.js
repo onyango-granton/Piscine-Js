@@ -1,8 +1,8 @@
 const throttle = function (func, delay) {
     let timeout
-    return () => {
+    return (...args) => {
         if (!timeout) {
-            func();
+            func(...args);
             timeout = setTimeout(() => {
                 timeout = null
             }, delay);
