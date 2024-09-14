@@ -19,6 +19,6 @@ async function isWinner(country) {
   } catch (error) {
     // Handle potential errors from db.getWinner or db.getResults
     console.error(`Error getting winner info for ${country}`, error);
-    return `Error retrieving information about ${country}`;
+    return `${country} was never a winner`;
   }
 }
