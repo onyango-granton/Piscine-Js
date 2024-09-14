@@ -1,4 +1,4 @@
-const getJSON = async function (path, params) {
+async function getJSON (path, params) {
   const url = new URL(path);
   if (params) {
     url.searchParams.set("params", JSON.stringify(params));
