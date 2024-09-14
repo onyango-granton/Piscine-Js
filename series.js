@@ -4,7 +4,7 @@ async function series(funcArray) {
         return []
     }
     for (let i = 0; i < funcArray.length; i++){
-       await resultArr.push(await funcArray[i])
+        resultArr.push(await funcArray[i]())
     }
     return resultArr
 }
