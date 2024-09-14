@@ -9,7 +9,7 @@ async function isWinner(country) {
     const results = await db.getResults(winnerData.id);
 
     if (results.length < 3) {
-      return `${country} is not what we are looking for because of the number of times it was champion`;
+      return `${country} is not what we are looking for because of the continent`;
     }
 
     const years = results.map((result) => result.year).join(", ");
