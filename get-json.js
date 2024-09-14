@@ -6,7 +6,7 @@ async function getJSON(path, params) {
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error(`Network response was not ok (status: ${response.status})`);
+    throw new Error(response.statusText);
   }
 
   const data = await response.json();
