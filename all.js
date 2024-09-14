@@ -1,4 +1,4 @@
-function all(object) {
+const all = function (object) {
   const entries = Object.entries(object);
 
   return Promise.all(
@@ -11,4 +11,4 @@ function all(object) {
       }
     })
   ).then((resolvedEntries) => Object.fromEntries(resolvedEntries));
-}
+};
