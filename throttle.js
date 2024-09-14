@@ -40,11 +40,14 @@ const throttle = function (func, delay) {
 const opThrottle = function (
   func,
   delay,
-  options = { leading: true, trailing: true }
+  options = { }
 ) {
-    if (options == null) {
+    if (options.leading == null) {
         return() => 0
     }
+
+    options.leading = true
+    options.trailing = true
 
   let timeout;
   let lastArgs;
