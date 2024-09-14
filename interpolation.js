@@ -1,13 +1,20 @@
-const interpolation = function({step, start, end, callback, duration}){
-    const points = [];
-    const stepSize = (end - start) / step;
-    for (let i = 0; i < step; i++) {
-        const distance = start + stepSize * i;
-        points.push([distance, callback([distance, start + stepSize * (i + 1)])]);
+function interpolation({ step, start, end, callback, duration }) {
+  const interval = duration / step; // Calculate the delay between steps
+  const stepSize = (end - start) / step; // Calculate the size of each step
+
+  let currentStep = 0;
+
+  const interpolateStep = () => {
+    if (currentStep < step) {
+      const x = currentStep; // The distance (step number)
+      const y = start + currentStep * stepSize; // The interpolated point
+
+      callback([x, y]); // Call the callback with [x, y]
+      currentStep++; // Move to the next step
+
+      setTimeout(interpolateStep, interval); // Delay the next step
     }
-    points.forEach((point, index) => {
-        setTimeout(() => {
-            callback(point[1]);
-        }, (duration / step) * index);
-    });
+  };
+
+  interpolateStep(); // Start the interpolation
 }
