@@ -11,27 +11,57 @@ const throttle = function (func, delay) {
 };
 
 
-const opThrottle = function (func, delay, options = {}) {
-    let timeout
-    let leadingCalled = false
+// const opThrottle = function (func, delay, options = {}) {
+//     let timeout
+//     let leadingCalled = false
 
-    return (...args) => {
-        const callNow = options.leading && !leadingCalled;
+//     return (...args) => {
+//         const callNow = options.leading && !leadingCalled;
 
-        if (callNow) {
-          func(...args);
-          leadingCalled = true;
-        }
+//         if (callNow) {
+//           func(...args);
+//           leadingCalled = true;
+//         }
 
-        if (!timeout) {
-            if (!options.leading) {
-                func(...args);
-            }
+//         if (!timeout) {
+//             if (!options.leading) {
+//                 func(...args);
+//             }
           
-          timeout = setTimeout(() => {
-              timeout = null;
-              leadingCalled = false
-          }, delay);
+//           timeout = setTimeout(() => {
+//               timeout = null;
+//               leadingCalled = false
+//           }, delay);
+//         }
+//     }
+// }
+
+
+const opThrottle = function (
+  func,
+  delay,
+  options = { leading: true, trailing: true }
+) {
+  let timeout;
+  let lastArgs;
+  let lastThis;
+
+  return function (...args) {
+    const callNow = !timeout && options.leading;
+    lastArgs = args;
+    lastThis = this;
+
+    if (!timeout) {
+      if (callNow) {
+        func.apply(lastThis, lastArgs); // Leading call
+      }
+      timeout = setTimeout(() => {
+        timeout = null;
+        if (options.trailing && lastArgs) {
+          func.apply(lastThis, lastArgs); // Trailing call
+          lastArgs = null; // Reset after trailing execution
         }
+      }, delay);
     }
-}
+  };
+};
