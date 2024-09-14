@@ -13,14 +13,10 @@ const retry = function (count, callback) {
 };
 
 const timeout = function (delay, callback) {
-  return (...args) => {
-    let newErr;
-    try {
-      return setTimeout(() => callback(...args), delay);
-    } catch (e) {
-      newErr = e;
-    }
-
-    throw newErr;
-  };
+    return async (...args) => {
+        let timeout = new Promise((_, func) => {
+          setTimeout(() => func(new Error("timeout")),delay);
+        })
+        return Promise.race([timeout, callback(...args)])
+  }
 };
