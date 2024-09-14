@@ -1,7 +1,7 @@
 async function queryServers(serverName, q) {
   const promises = [
     getJSON(`/${serverName}?q=${q}`),
-    getJSON(`/serverName_backup?q=${q}`),
+    getJSON(`/${serverName}_backup?q=${q}`),
   ];
 
 
