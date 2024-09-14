@@ -1,13 +1,14 @@
-const all = function(obj) {
+const all = function (object) {
   return new Promise(async (resolve, reject) => {
-      let returnresult = {};
-      Object.keys(obj).forEach(async(key) => {
-          try {
-            returnresult[key] = await obj[key]
-          } catch (e) {
-              reject(e)
-          }
-      })
+    let returnresult = {};
+
+    for (const key in object) {
+      try {
+        returnresult[key] = await object[key];
+      } catch (e) {
+        reject(e);
+      }
+    }
     resolve(returnresult);
   });
-}
+};
