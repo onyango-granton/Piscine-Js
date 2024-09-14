@@ -1,8 +1,7 @@
-async function getJSON (path, params) {
-  const url = new URL(path);
-  if (params) {
-    url.searchParams.set("params", JSON.stringify(params));
-  }
+async function getJSON(path, params) {
+  const url = params
+    ? `${path}?${new URLSearchParams(params).toString()}`
+    : path;
 
   const response = await fetch(url);
 
