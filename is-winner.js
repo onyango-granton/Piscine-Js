@@ -6,10 +6,15 @@ async function isWinner(country) {
       return `${country} never was a winner`;
     }
 
-    const results = await db.getResults(winnerData.id);
+      const results = await db.getResults(winnerData.id);
+      
+    if (country.continent !== "Europe") {
+      return `${country.name} is not what we are looking for because of the continent`;
+      }
+
 
     if (results.length < 3) {
-      return `${country} is not what we are looking for because of the continent`;
+      return `${country} is not what we are looking for because of the number of times it was champion`;
     }
 
     const years = results.map((result) => result.year).join(", ");
@@ -17,8 +22,6 @@ async function isWinner(country) {
 
     return `${country} won the FIFA World Cup in ${years} winning by ${scores}`;
   } catch (error) {
-    // Handle potential errors from db.getWinner or db.getResults
-    console.error(`Error getting winner info for ${country}`, error);
     return `${country} never was a winner`;
   }
 }
