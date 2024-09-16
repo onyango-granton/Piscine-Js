@@ -1,8 +1,4 @@
-import {argv} from 'node:process'
-
-argv.forEach((val, index) => {
-    console.log(`${index}: ${val}`)
-})
+import { argv } from 'node:process'
 
 let wordsToBeSplit = argv[2]
 
