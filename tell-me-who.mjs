@@ -3,7 +3,7 @@ import { readdir } from "fs/promises";
 
 let directory = argv[2]
 
-directory == null ? directory = "./guests" : null
+directory == null ? directory = "." : null
 
 try {
     let guests = await readdir(directory)
