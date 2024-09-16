@@ -28,7 +28,7 @@ try {
 
     await sortedArr.forEach(entry => {
         guestNum++;
-        console.log(`${guestNum} ${entry}`)
+        console.log(`${guestNum}. ${entry}`)
     })
 
     
