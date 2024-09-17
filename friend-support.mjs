@@ -28,12 +28,12 @@ const server = http.createServer(async (req, res) => {
       res.statusCode = 200;
       res.end(JSON.stringify(contentJson));
     } catch (error) {
-      res.statusCode = 404;
-      res.end(JSON.stringify({ error: "guest not found" }));
+      res.statusCode = 500;
+      res.end(JSON.stringify({ error: "server failed" }));
     }
   } catch (error) {
-    res.statusCode = 500;
-    res.end(JSON.stringify({ error: "server failed" }));
+    res.statusCode = 404;
+    res.end(JSON.stringify({ error: "guest not found" }));
   }
 });
 
