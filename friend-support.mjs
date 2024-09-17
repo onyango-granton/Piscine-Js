@@ -16,9 +16,10 @@ const server = http.createServer(async (req, res) => {
       throw new Error("Guest name is missing in the URL.");
     }
 
-    const fileName = `${guestName}.json`;
-
-    const filePath = path.join(process.cwd(), "guests", fileName);
+      const fileName = `${guestName}.json`;
+      console.log(fileName)
+      const filePath = path.join(process.cwd(),"guests", fileName);
+      console.log(filePath);
 
     try {
       const content = await readFile(filePath, { encoding: "utf8" });
@@ -27,27 +28,17 @@ const server = http.createServer(async (req, res) => {
       res.statusCode = 200;
       res.end(JSON.stringify(contentJson));
     } catch (error) {
-      if (error.code === "ENOENT") {
-        res.statusCode = 404;
-        res.end(JSON.stringify({ error: "guest not found" }));
-      } else {
-        throw error; 
-      }
+      res.statusCode = 404;
+      res.end(JSON.stringify({ error: "guest not found" }));
     }
   } catch (error) {
-    console.error("Server error:", error);
     res.statusCode = 500;
     res.end(JSON.stringify({ error: "server failed" }));
   }
 });
 
-export function startServer() {
-  return new Promise((resolve) => {
-    server.listen(PORT, () => {
-      console.log(`Server is listening on port ${PORT}`);
-      resolve(server);
-    });
-  });
-}
+server.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
+});
 
 export { server };
