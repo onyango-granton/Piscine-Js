@@ -1,14 +1,14 @@
 import { readFile } from "fs/promises";
 import http from "http";
 import url from "url";
+import path from "path";
 
-let hostname = "127.0.0.1";
-let port = 5000;
+const hostname = "127.0.0.1";
+const port = 5000;
 
-let server = http.createServer(async (req, res) => {
-  let guestName = url.parse(req.url).pathname.slice(1);
-
-  let fileName = guestName + ".json";
+const server = http.createServer(async (req, res) => {
+  const guestName = url.parse(req.url).pathname.slice(1);
+  const fileName = guestName + ".json";
 
   if (!guestName) {
     res.statusCode = 500;
@@ -18,13 +18,10 @@ let server = http.createServer(async (req, res) => {
   }
 
   try {
-    // Read the file with the guest's name
-    //let content = await readFile(`./guests/${fileName}`, { encoding: "utf8" });
-    let content = await readFile(fileName, {
+    const content = await readFile(path.join("guests", fileName), {
       encoding: "utf8",
     });
-    //console.log(content)
-    let contentJson = JSON.parse(content);
+    const contentJson = JSON.parse(content);
 
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
@@ -36,6 +33,13 @@ let server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+export function startServer() {
+  return new Promise((resolve) => {
+    server.listen(port, hostname, () => {
+      console.log(`Server running at http://${hostname}:${port}/`);
+      resolve(server);
+    });
+  });
+}
+
+export { server };
