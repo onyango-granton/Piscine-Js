@@ -25,15 +25,14 @@ const server = http.createServer(async (req, res) => {
         body += chunk.toString();
       }
 
-      const guestData = JSON.parse(body);
       const fileName = `${guestName}.json`;
       const filePath = path.join(__dirname, "guests", fileName);
 
       await fs.mkdir(path.dirname(filePath), { recursive: true });
-      await fs.writeFile(filePath, JSON.stringify(guestData, null, 2));
+      await fs.writeFile(filePath, body);
 
       res.statusCode = 201;
-      res.end(JSON.stringify(guestData));
+      res.end(body);
     } catch (error) {
       console.error("Server error:", error);
       res.statusCode = 500;
@@ -46,7 +45,6 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
-});
-
+    console.log(`Server is listening on port ${PORT}`);
+})
 export { server };
