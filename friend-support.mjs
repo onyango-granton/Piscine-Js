@@ -16,10 +16,10 @@ const server = http.createServer(async (req, res) => {
       throw new Error("Guest name is missing in the URL.");
     }
 
-      const fileName = `${guestName}.json`;
-      console.log(fileName)
-      const filePath = path.join(process.cwd(),"guests", fileName);
-      console.log(filePath);
+    const fileName = `${guestName}.json`;
+    console.log(fileName);
+    const filePath = path.join(process.cwd(), "guests", fileName);
+    console.log(filePath);
 
     try {
       const content = await readFile(filePath, { encoding: "utf8" });
@@ -28,12 +28,17 @@ const server = http.createServer(async (req, res) => {
       res.statusCode = 200;
       res.end(JSON.stringify(contentJson));
     } catch (error) {
-      res.statusCode = 500;
-      res.end(JSON.stringify({ error: "server failed" }));
+      if (error.code === "ENOENT") {
+        res.statusCode = 404;
+        res.end(JSON.stringify({ error: "guest not found" }));
+      } else {
+        throw error;
+      }
     }
   } catch (error) {
-    res.statusCode = 404;
-    res.end(JSON.stringify({ error: "guest not found" }));
+    console.error("Server error:", error);
+    res.statusCode = 500;
+    res.end(JSON.stringify({ error: "server failed" }));
   }
 });
 
