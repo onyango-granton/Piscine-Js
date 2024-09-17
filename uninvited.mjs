@@ -26,7 +26,7 @@ const server = http.createServer(async (req, res) => {
       }
 
       const fileName = `${guestName}.json`;
-      const filePath = path.join(__dirname, "guests", fileName);
+      const filePath = path.join(process.cwd(), "guests", fileName);
 
       await fs.mkdir(path.dirname(filePath), { recursive: true });
       await fs.writeFile(filePath, body);
@@ -44,13 +44,7 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-export function startServer() {
-  return new Promise((resolve) => {
-    server.listen(PORT, () => {
-      console.log(`Server is listening on port ${PORT}`);
-      resolve(server);
-    });
-  });
-}
-
+server.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
+})
 export { server };
