@@ -16,8 +16,10 @@ const server = http.createServer(async (req, res) => {
       throw new Error("Guest name is missing in the URL.");
     }
 
-    const fileName = `${guestName}.json`;
-    const filePath = path.join(process.cwd(), fileName);
+      const fileName = `${guestName}.json`;
+      console.log(fileName)
+      const filePath = path.join(process.cwd(), fileName);
+      console.log(filePath);
 
     try {
       const content = await readFile(filePath, { encoding: "utf8" });
