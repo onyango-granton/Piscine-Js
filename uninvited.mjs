@@ -44,7 +44,13 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
-})
+export function startServer() {
+  return new Promise((resolve) => {
+    server.listen(PORT, () => {
+      console.log(`Server is listening on port ${PORT}`);
+      resolve(server);
+    });
+  });
+}
+
 export { server };
